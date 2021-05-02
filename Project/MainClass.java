@@ -15,6 +15,7 @@ public class MainClass extends Application{
 	public void start(Stage stage) throws Exception {
 		System.out.println("oldu sonunda ");
 		System.out.println("evet oldu");
+		System.out.println("bu sefer kesin oldu :d");
 		BorderPane mainPane = new BorderPane();
 		
 		Pane topPane = new Pane();
