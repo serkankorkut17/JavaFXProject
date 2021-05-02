@@ -10,11 +10,10 @@ public class MainClass extends Application{
 	public static void main(String[] args) {
 		launch();
 	}
-
+	
 	@Override
 	public void start(Stage stage) throws Exception {
-		System.out.println("ASDF");
-		System.out.println("sdsaas");
+		System.out.println("oldu sonunda ");
 		BorderPane mainPane = new BorderPane();
 		
 		Pane topPane = new Pane();
