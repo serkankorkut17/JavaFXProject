@@ -59,6 +59,9 @@ public class GamePane extends GridPane{
 	}
 	
 	public void hitBoxes(Box box) {
+		if(box.getType().equals("Wall")||box.getType().equals("Empty")) {
+			return;
+		}
 		int row = 0;
 		int column = 0;
 		for (int i = 0; i < boxes.length; i++) {
@@ -71,11 +74,17 @@ public class GamePane extends GridPane{
 			}
 		}
 		hitOneBox(boxes[row][column]);
-		hitOneBox(boxes[row+1][column]);
-		hitOneBox(boxes[row-1][column]);
-		hitOneBox(boxes[row][column+1]);
-		hitOneBox(boxes[row][column-1]);
-		
-		
+		if(row<9) {
+			hitOneBox(boxes[row+1][column]);
+		}
+		if(row>0) {
+			hitOneBox(boxes[row-1][column]);
+		}
+		if(column<9) {
+			hitOneBox(boxes[row][column+1]);
+		}
+		if(column>0) {
+			hitOneBox(boxes[row][column-1]);
+		}
 	}
 }
