@@ -75,5 +75,7 @@ public class GamePane extends GridPane{
 		hitOneBox(boxes[row-1][column]);
 		hitOneBox(boxes[row][column+1]);
 		hitOneBox(boxes[row][column-1]);
+		
+		
 	}
 }
