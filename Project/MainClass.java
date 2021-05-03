@@ -1,3 +1,5 @@
+import java.io.File;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -22,7 +24,8 @@ public class MainClass extends Application{
 		Pane bottomPane = new Pane();
 		bottomPane.getChildren().add(new Label("---Text---"));
 		
-		GamePane gamePane = new GamePane();
+		File level = new File("Level1.txt");
+		GamePane gamePane = new GamePane(level);
 		
 		mainPane.setCenter(gamePane);
 		mainPane.setTop(topPane);
