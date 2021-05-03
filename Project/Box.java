@@ -50,4 +50,22 @@ public class Box extends ImageView {
 			break;
 		}
 	}
+	/*
+	public void hitOneBox(Box box) {
+		String type = box.getType();
+		switch(type) {
+		case("Wood"):
+			box.setType("Mirror");
+			break;
+		case("Mirror"):
+			box.setType("Empty");
+			break;
+		case("Wall"):
+			durability = 0;
+			break;
+		case("Empty"):
+			durability = 0;
+			break;
+		}
+	}*/
 }
