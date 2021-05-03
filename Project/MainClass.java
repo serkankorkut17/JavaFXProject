@@ -24,7 +24,7 @@ public class MainClass extends Application{
 		Pane bottomPane = new Pane();
 		bottomPane.getChildren().add(new Label("---Text---"));
 		
-		File level = new File("Level1.txt");
+		File level = new File("Level5.txt");
 		GamePane gamePane = new GamePane(level);
 		
 		mainPane.setCenter(gamePane);

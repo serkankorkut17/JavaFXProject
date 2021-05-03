@@ -16,7 +16,7 @@ public class GamePane extends GridPane{
 	Image wood = new Image("wood.png");
 	Image empty = new Image("empty.png");
 	public GamePane(File level) throws Exception {
-		draw(level);	
+		draw(level);
 	}
 	
 	public void draw(File level) throws Exception {
