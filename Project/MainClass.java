@@ -27,18 +27,6 @@ public class MainClass extends Application{
 		File level = new File("Level5.txt");
 		GamePane gamePane = new GamePane(level);
 		
-		gamePane.setOnMouseClicked(e -> {
-			int row = (int)(e.getY()) / 70;
-			int column = (int)(e.getX()) / 70;
-			
-			System.out.println((int)(e.getX()) / 70);
-			System.out.println((int)(e.getY()) / 70);	
-			System.out.println((int)(e.getSceneX()) / 70);
-			System.out.println((int)(e.getSceneY()) / 70);
-			System.out.println((int)(e.getScreenX()) / 70);
-			System.out.println((int)(e.getScreenY()) / 70);
-		});
-		
 		mainPane.setCenter(gamePane);
 		mainPane.setTop(topPane);
 		mainPane.setBottom(bottomPane);

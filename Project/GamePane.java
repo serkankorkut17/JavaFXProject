@@ -26,6 +26,10 @@ public class GamePane extends GridPane{
 			for(int column = 0;column<10;column++) {
 				boxes[row][column] = new Box("Wall");
 				this.add(boxes[row][column],column, row);
+				boxes[row][column].setOnMouseClicked(e->
+				{	Box box = (Box)e.getSource();
+					box.setType("Wall");
+				});
 			}
 		}
 		Scanner levelfile = new Scanner(level);
