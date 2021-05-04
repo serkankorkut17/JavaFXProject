@@ -1,4 +1,3 @@
-import java.io.File;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -19,13 +18,24 @@ public class MainClass extends Application{
 		
 		Pane topPane = new Pane();
 		topPane.setMinHeight(10);
-		topPane.getChildren().add(new Label("Level #1"));
 		
-		Pane bottomPane = new Pane();
-		bottomPane.getChildren().add(new Label("---Text---"));
+		BorderPane bottomPane = new BorderPane();
+		bottomPane.setLeft(new Label("---Text---"));
 		
-		File level = new File("Level4.txt");
-		GamePane gamePane = new GamePane(level);
+		GamePane gamePane = new GamePane();
+		
+		Label currentLevel = new Label();
+		currentLevel.setText(String.format("Level %d", gamePane.getCurrentLevel()));
+		topPane.getChildren().add(currentLevel);
+		Label changeLevel = new Label("Next Level");
+		changeLevel.setOnMouseClicked(e->{try {
+			gamePane.nextLevel();
+			currentLevel.setText(String.format("Level %d", gamePane.getCurrentLevel()));
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}});
+		bottomPane.setRight(changeLevel);
 		
 		mainPane.setCenter(gamePane);
 		mainPane.setTop(topPane);

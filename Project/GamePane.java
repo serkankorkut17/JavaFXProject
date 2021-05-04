@@ -9,17 +9,20 @@ import javafx.scene.media.MediaPlayer;
 
 
 public class GamePane extends GridPane{
-	
+	private final int LEVEL_COUNT = 5;
 	private Box[][] boxes = new Box[10][10];
+	private int currentLevel;
     MediaPlayer mediaPlayer;
-	public GamePane(File level) throws Exception {
+
+	public GamePane() throws Exception {
+		currentLevel = 1;
 		String music = "deneme.mp3";
 	    Media sound = new Media(new File(music).toURI().toString());
 	    mediaPlayer = new MediaPlayer(sound);
-		draw(level);
+		draw(currentLevel);
 	}
 	
-	public void draw(File level) throws Exception {
+	public void draw(int currentLevel) throws Exception {
 		this.setPadding(new Insets(2, 2, 2, 2));
 		this.setStyle("-fx-background-color: #9c9a9a");
 		this.setHgap(2);
@@ -36,7 +39,7 @@ public class GamePane extends GridPane{
 				});
 			}
 		}
-		Scanner levelfile = new Scanner(level);
+		Scanner levelfile = new Scanner(new File(String.format("Level%d.txt", currentLevel)));
 		while(levelfile.hasNext()) {
 			String line = levelfile.nextLine();
 			String[] parts = line.split(",");
@@ -76,11 +79,9 @@ public class GamePane extends GridPane{
 			}
 		}
 		
-		if (box.getType().equals("Mirror")) {
-			mediaPlayer.stop();
-			mediaPlayer.seek(mediaPlayer.getStartTime());
-			mediaPlayer.play();
-		}
+		mediaPlayer.stop();
+		mediaPlayer.seek(mediaPlayer.getStartTime());
+		mediaPlayer.play();
 		
 		hitOneBox(boxes[row][column]);
 		if(row<9) {
@@ -95,5 +96,20 @@ public class GamePane extends GridPane{
 		if(column>0) {
 			hitOneBox(boxes[row][column-1]);
 		}
+	}
+	
+	public void nextLevel() throws Exception {
+		if(currentLevel+1<=LEVEL_COUNT) {
+			currentLevel++;
+			draw(currentLevel);
+		}
+		else {
+			currentLevel = 1;
+			draw(currentLevel);
+		}
+	}
+	
+	public int getCurrentLevel() {
+		return currentLevel;
 	}
 }
