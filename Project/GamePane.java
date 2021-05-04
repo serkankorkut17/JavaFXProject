@@ -3,6 +3,7 @@ import java.io.File;
 import java.util.Scanner;
 
 import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -10,12 +11,16 @@ import javafx.scene.media.MediaPlayer;
 
 public class GamePane extends GridPane{
 	private String points = "";
+	private int score;
+	private Label scoreLabel;
 	private final int LEVEL_COUNT = 5;
 	private Box[][] boxes = new Box[10][10];
 	private int currentLevel;
     MediaPlayer mediaPlayer;
 
-	public GamePane() throws Exception {
+	public GamePane(Label scoreLabel) throws Exception {
+		this.scoreLabel = scoreLabel;
+		scoreLabel.setText("Score: "+score);
 		currentLevel = 1;
 		String music = "deneme.mp3";
 	    Media sound = new Media(new File(music).toURI().toString());
@@ -127,20 +132,26 @@ public class GamePane extends GridPane{
 			switch(hits) {
 			case(1):
 				setPoints(getPoints() + " (-3 points)");
+				score -= 3;
 				break;
 			case(2):
 				setPoints(getPoints() + " (-1 points)");
+				score -= 1;
 				break;
 			case(3):
 				setPoints(getPoints() + " (+1 points)");
+				score += 1;
 				break;
 			case(4):
 				setPoints(getPoints() + " (+2 points)");
+				score += 2;
 				break;
 			case(5):
+				score += 4;
 				setPoints(getPoints() + " (+4 points)");
 				break;
 			}
+			scoreLabel.setText("Score: "+score);
 		}
 	}
 	
@@ -153,6 +164,8 @@ public class GamePane extends GridPane{
 			currentLevel = 1;
 			draw(currentLevel);
 		}
+		score = 0;
+		scoreLabel.setText("Score: "+score);
 	}
 	
 	public int getCurrentLevel() {

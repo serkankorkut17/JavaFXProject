@@ -16,10 +16,11 @@ public class MainClass extends Application{
 	public void start(Stage stage) throws Exception {
 		BorderPane mainPane = new BorderPane();
 		
-		Pane topPane = new Pane();
+		BorderPane topPane = new BorderPane();
 		topPane.setMinHeight(10);
 		
-		GamePane gamePane = new GamePane();
+		Label scoreLabel = new Label();
+		GamePane gamePane = new GamePane(scoreLabel);
 		
 		BorderPane bottomPane = new BorderPane();
 	//	bottomPane.setLeft(new Label("---Text---"));
@@ -31,11 +32,15 @@ public class MainClass extends Application{
 		
 		Label currentLevel = new Label();
 		currentLevel.setText(String.format("Level %d", gamePane.getCurrentLevel()));
-		topPane.getChildren().add(currentLevel);
+		
+		topPane.setLeft(currentLevel);
+		topPane.setCenter(scoreLabel);
+		
 		Label changeLevel = new Label("Next Level");
 		changeLevel.setOnMouseClicked(e->{try {
 			gamePane.nextLevel();
 			currentLevel.setText(String.format("Level %d", gamePane.getCurrentLevel()));
+			hit.setText("---Text---");
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
