@@ -6,6 +6,8 @@ import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 
 public class GamePane extends GridPane{
@@ -69,10 +71,17 @@ public class GamePane extends GridPane{
 				if (box == boxes[i][j]) {
 					row = i;
 					column = j;
-				}
-					
+				}	
 			}
 		}
+		
+		if (box.getType().equals("Mirror")) {
+			String music = "mirrorsounddeneme.mp3";
+	        Media sound = new Media(new File(music).toURI().toString());
+	        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+	        mediaPlayer.play();
+		}
+		
 		hitOneBox(boxes[row][column]);
 		if(row<9) {
 			hitOneBox(boxes[row+1][column]);
