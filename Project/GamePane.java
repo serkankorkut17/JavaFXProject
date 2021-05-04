@@ -3,8 +3,6 @@ import java.io.File;
 import java.util.Scanner;
 
 import javafx.geometry.Insets;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -13,16 +11,19 @@ import javafx.scene.media.MediaPlayer;
 public class GamePane extends GridPane{
 	
 	private Box[][] boxes = new Box[10][10];
-
+    MediaPlayer mediaPlayer;
 	public GamePane(File level) throws Exception {
+		String music = "deneme.mp3";
+	    Media sound = new Media(new File(music).toURI().toString());
+	    mediaPlayer = new MediaPlayer(sound);
 		draw(level);
 	}
 	
 	public void draw(File level) throws Exception {
-		this.setPadding(new Insets(5, 5, 5, 5));
+		this.setPadding(new Insets(2, 2, 2, 2));
 		this.setStyle("-fx-background-color: #9c9a9a");
-		this.setHgap(5);
-		this.setVgap(5);
+		this.setHgap(2);
+		this.setVgap(2);
 		 
 		for(int row = 0;row<10;row++) {
 			for(int column = 0;column<10;column++) {
@@ -76,10 +77,9 @@ public class GamePane extends GridPane{
 		}
 		
 		if (box.getType().equals("Mirror")) {
-			String music = "mirrorsounddeneme.mp3";
-	        Media sound = new Media(new File(music).toURI().toString());
-	        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-	        mediaPlayer.play();
+			mediaPlayer.stop();
+			mediaPlayer.seek(mediaPlayer.getStartTime());
+			mediaPlayer.play();
 		}
 		
 		hitOneBox(boxes[row][column]);
