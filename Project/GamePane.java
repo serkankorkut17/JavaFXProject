@@ -9,6 +9,7 @@ import javafx.scene.media.MediaPlayer;
 
 
 public class GamePane extends GridPane{
+	private String points = "";
 	private final int LEVEL_COUNT = 5;
 	private Box[][] boxes = new Box[10][10];
 	private int currentLevel;
@@ -33,7 +34,8 @@ public class GamePane extends GridPane{
 				boxes[row][column] = new Box("Wall");
 				this.add(boxes[row][column],column, row);
 				boxes[row][column].setOnMouseClicked(e->
-				{	Box box = (Box)e.getSource();
+				{	setPoints("");
+					Box box = (Box)e.getSource();
 					hitBoxes(box);
 				//	box.setType("Empty");
 				});
@@ -46,6 +48,16 @@ public class GamePane extends GridPane{
 			boxes[Integer.parseInt(parts[1])][Integer.parseInt(parts[2])].setType(parts[0]);
 		}
 		levelfile.close();
+		
+		
+	}
+	
+	public String getPoints() {
+		return points;
+	}
+
+	public void setPoints(String points) {
+		this.points = points;
 	}
 	
 	public void hitOneBox(Box box) {
@@ -83,18 +95,52 @@ public class GamePane extends GridPane{
 		mediaPlayer.seek(mediaPlayer.getStartTime());
 		mediaPlayer.play();
 		
-		hitOneBox(boxes[row][column]);
-		if(row<9) {
-			hitOneBox(boxes[row+1][column]);
-		}
-		if(row>0) {
-			hitOneBox(boxes[row-1][column]);
-		}
-		if(column<9) {
-			hitOneBox(boxes[row][column+1]);
-		}
-		if(column>0) {
-			hitOneBox(boxes[row][column-1]);
+		if (row < 9 & row > 0 & column < 9 & column > 0) {
+			hitOneBox(boxes[row][column]);
+			int hits = 1;
+			setPoints("Box:" + row + "-" + column);
+			
+			if(boxes[row+1][column].getType().equals("Mirror") || boxes[row+1][column].getType().equals("Wood")) {
+				hitOneBox(boxes[row+1][column]);
+				setPoints(getPoints() + " - Hit:" + (row+1) + "," + column);
+				hits++;
+			}
+			
+			if(boxes[row-1][column].getType().equals("Mirror") || boxes[row-1][column].getType().equals("Wood")) {
+				hitOneBox(boxes[row-1][column]);
+				setPoints(getPoints() + " - Hit:" + (row-1) + "," + column);
+				hits++;
+			}
+			
+			if(boxes[row][column+1].getType().equals("Mirror") || boxes[row][column+1].getType().equals("Wood")) {
+				hitOneBox(boxes[row][column+1]);
+				setPoints(getPoints() + " - Hit:" + (row) + "," + (column+1));
+				hits++;
+			}
+			
+			if(boxes[row][column-1].getType().equals("Mirror") || boxes[row][column-1].getType().equals("Wood")) {
+				hitOneBox(boxes[row][column-1]);
+				setPoints(getPoints() + " - Hit:" + (row) + "," + (column-1));
+				hits++;
+			}
+			
+			switch(hits) {
+			case(1):
+				setPoints(getPoints() + " (-3 points)");
+				break;
+			case(2):
+				setPoints(getPoints() + " (-1 points)");
+				break;
+			case(3):
+				setPoints(getPoints() + " (+1 points)");
+				break;
+			case(4):
+				setPoints(getPoints() + " (+2 points)");
+				break;
+			case(5):
+				setPoints(getPoints() + " (+4 points)");
+				break;
+			}
 		}
 	}
 	

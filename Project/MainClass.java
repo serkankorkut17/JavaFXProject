@@ -19,10 +19,15 @@ public class MainClass extends Application{
 		Pane topPane = new Pane();
 		topPane.setMinHeight(10);
 		
-		BorderPane bottomPane = new BorderPane();
-		bottomPane.setLeft(new Label("---Text---"));
-		
 		GamePane gamePane = new GamePane();
+		
+		BorderPane bottomPane = new BorderPane();
+	//	bottomPane.setLeft(new Label("---Text---"));
+		Label hit = new Label("---Text---");
+		bottomPane.getChildren().add(hit);
+		gamePane.setOnMouseClicked(e->
+		{	hit.setText(gamePane.getPoints());;
+		});
 		
 		Label currentLevel = new Label();
 		currentLevel.setText(String.format("Level %d", gamePane.getCurrentLevel()));
