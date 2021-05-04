@@ -24,7 +24,7 @@ public class MainClass extends Application{
 		BorderPane bottomPane = new BorderPane();
 	//	bottomPane.setLeft(new Label("---Text---"));
 		Label hit = new Label("---Text---");
-		bottomPane.getChildren().add(hit);
+		bottomPane.setLeft(hit);
 		gamePane.setOnMouseClicked(e->
 		{	hit.setText(gamePane.getPoints());;
 		});
