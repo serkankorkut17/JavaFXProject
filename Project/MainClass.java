@@ -44,10 +44,10 @@ public class MainClass extends Application{
 			gamePane.nextLevel();
 			currentLevel.setText(String.format("Level %d", gamePane.getCurrentLevel()));
 			hit.setText("---Text---");
-		} catch (Exception e1) {
+			} catch (Exception e1) {
 			
-			e1.printStackTrace();
-		}});
+				e1.printStackTrace();
+			}});
 		
 		bottomPane.setRight(nextLevel);
 		

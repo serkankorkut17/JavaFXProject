@@ -1,9 +1,7 @@
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
-
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -111,6 +109,7 @@ public class GamePane extends GridPane{
 		mediaPlayer.stop();
 		mediaPlayer.seek(mediaPlayer.getStartTime());
 		mediaPlayer.play();
+		System.out.println(getHighScore(getCurrentLevel()));
 		
 		if (row < 9 && row > 0 && column < 9 && column > 0) {
 			hitOneBox(boxes[row][column]);
