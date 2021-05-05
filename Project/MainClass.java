@@ -3,7 +3,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class MainClass extends Application{
@@ -19,8 +18,11 @@ public class MainClass extends Application{
 		BorderPane topPane = new BorderPane();
 		topPane.setMinHeight(10);
 		
+		Label nextLevel = new Label("Next Level");
+		nextLevel.setDisable(true);
+		
 		Label scoreLabel = new Label();
-		GamePane gamePane = new GamePane(scoreLabel);
+		GamePane gamePane = new GamePane(scoreLabel,nextLevel);
 		
 		BorderPane bottomPane = new BorderPane();
 		Label hit = new Label("---Text---");
@@ -36,8 +38,7 @@ public class MainClass extends Application{
 		topPane.setLeft(currentLevel);
 		topPane.setCenter(scoreLabel);
 		
-		Label changeLevel = new Label("Next Level");
-		changeLevel.setOnMouseClicked(e->{try {
+		nextLevel.setOnMouseClicked(e->{try {
 			gamePane.nextLevel();
 			currentLevel.setText(String.format("Level %d", gamePane.getCurrentLevel()));
 			hit.setText("---Text---");
@@ -46,7 +47,7 @@ public class MainClass extends Application{
 			e1.printStackTrace();
 		}});
 		
-		bottomPane.setRight(changeLevel);
+		bottomPane.setRight(nextLevel);
 		
 		mainPane.setCenter(gamePane);
 		mainPane.setTop(topPane);

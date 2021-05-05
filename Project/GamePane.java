@@ -13,13 +13,15 @@ public class GamePane extends GridPane{
 	private String points = "";
 	private int score;
 	private Label scoreLabel;
+	private Label nextLevel;
 	private final int LEVEL_COUNT = 5;
 	private Box[][] boxes = new Box[10][10];
 	private int currentLevel;
     MediaPlayer mediaPlayer;
 
-	public GamePane(Label scoreLabel) throws Exception {
+	public GamePane(Label scoreLabel,Label nextLevel) throws Exception {
 		this.scoreLabel = scoreLabel;
+		this.nextLevel = nextLevel;
 		scoreLabel.setText("Score: "+score);
 		currentLevel = 1;
 		String music = "deneme.mp3";
@@ -42,7 +44,6 @@ public class GamePane extends GridPane{
 				{	setPoints("");
 					Box box = (Box)e.getSource();
 					hitBoxes(box);
-				//	box.setType("Empty");
 				});
 			}
 		}
@@ -154,6 +155,9 @@ public class GamePane extends GridPane{
 				break;
 			}
 			scoreLabel.setText("Score: "+score);
+			if(isFinished()) {
+				nextLevel.setDisable(false);
+			}
 		}
 	}
 	
@@ -168,9 +172,20 @@ public class GamePane extends GridPane{
 		}
 		score = 0;
 		scoreLabel.setText("Score: "+score);
+		nextLevel.setDisable(true);
 	}
 	
 	public int getCurrentLevel() {
 		return currentLevel;
+	}
+	
+	private boolean isFinished() {
+		for(int row = 0;row<boxes.length;row++) {
+			for(int column = 0;column<boxes[0].length;column++) {
+				if(!boxes[row][column].getType().equals("Wall")&&!boxes[row][column].getType().equals("Empty"))
+					return false;
+			}
+		}
+		return true;
 	}
 }
