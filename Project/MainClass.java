@@ -23,9 +23,9 @@ public class MainClass extends Application{
 		GamePane gamePane = new GamePane(scoreLabel);
 		
 		BorderPane bottomPane = new BorderPane();
-	//	bottomPane.setLeft(new Label("---Text---"));
 		Label hit = new Label("---Text---");
 		bottomPane.setLeft(hit);
+		
 		gamePane.setOnMouseClicked(e->
 		{	hit.setText(gamePane.getPoints());;
 		});
@@ -42,9 +42,10 @@ public class MainClass extends Application{
 			currentLevel.setText(String.format("Level %d", gamePane.getCurrentLevel()));
 			hit.setText("---Text---");
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
+			
 			e1.printStackTrace();
 		}});
+		
 		bottomPane.setRight(changeLevel);
 		
 		mainPane.setCenter(gamePane);

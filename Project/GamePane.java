@@ -58,6 +58,8 @@ public class GamePane extends GridPane{
 	}
 	
 	public String getPoints() {
+		if (points.equals(""))
+			return "---Text---";
 		return points;
 	}
 
