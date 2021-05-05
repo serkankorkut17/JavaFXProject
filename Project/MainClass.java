@@ -22,7 +22,8 @@ public class MainClass extends Application{
 		nextLevel.setDisable(true);
 		
 		Label scoreLabel = new Label();
-		GamePane gamePane = new GamePane(scoreLabel,nextLevel);
+		Label highScoreLabel = new Label();
+		GamePane gamePane = new GamePane(scoreLabel,nextLevel,highScoreLabel);
 		
 		BorderPane bottomPane = new BorderPane();
 		Label hit = new Label("---Text---");
@@ -37,6 +38,7 @@ public class MainClass extends Application{
 		
 		topPane.setLeft(currentLevel);
 		topPane.setCenter(scoreLabel);
+		topPane.setRight(highScoreLabel);
 		
 		nextLevel.setOnMouseClicked(e->{try {
 			gamePane.nextLevel();

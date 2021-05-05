@@ -1,5 +1,7 @@
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import javafx.geometry.Insets;
@@ -14,15 +16,18 @@ public class GamePane extends GridPane{
 	private int score;
 	private Label scoreLabel;
 	private Label nextLevel;
+	private Label highScoreLabel;
 	private final int LEVEL_COUNT = 5;
 	private Box[][] boxes = new Box[10][10];
 	private int currentLevel;
     MediaPlayer mediaPlayer;
 
-	public GamePane(Label scoreLabel,Label nextLevel) throws Exception {
+	public GamePane(Label scoreLabel,Label nextLevel, Label highScoreLabel) throws Exception {
 		this.scoreLabel = scoreLabel;
 		this.nextLevel = nextLevel;
+		this.highScoreLabel = highScoreLabel;
 		scoreLabel.setText("Score: "+score);
+		highScoreLabel.setText("High Score: " + getHighScore(currentLevel));
 		currentLevel = 1;
 		String music = "deneme.mp3";
 	    Media sound = new Media(new File(music).toURI().toString());
@@ -43,7 +48,11 @@ public class GamePane extends GridPane{
 				boxes[row][column].setOnMouseClicked(e->
 				{	setPoints("");
 					Box box = (Box)e.getSource();
-					hitBoxes(box);
+					try {
+						hitBoxes(box);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
 				});
 			}
 		}
@@ -84,7 +93,7 @@ public class GamePane extends GridPane{
 		}
 	}
 	
-	public void hitBoxes(Box box) {
+	public void hitBoxes(Box box) throws Exception {
 		if(box.getType().equals("Wall")||box.getType().equals("Empty")) {
 			return;
 		}
@@ -103,7 +112,7 @@ public class GamePane extends GridPane{
 		mediaPlayer.seek(mediaPlayer.getStartTime());
 		mediaPlayer.play();
 		
-		if (row < 9 & row > 0 & column < 9 & column > 0) {
+		if (row < 9 && row > 0 && column < 9 && column > 0) {
 			hitOneBox(boxes[row][column]);
 			int hits = 1;
 			setPoints("Box:" + row + "-" + column);
@@ -157,6 +166,9 @@ public class GamePane extends GridPane{
 			scoreLabel.setText("Score: "+score);
 			if(isFinished()) {
 				nextLevel.setDisable(false);
+				if (getHighScore(getCurrentLevel()) < score ) {
+					saveNewHighScore(getCurrentLevel(), score);
+				}
 			}
 		}
 	}
@@ -173,6 +185,7 @@ public class GamePane extends GridPane{
 		score = 0;
 		scoreLabel.setText("Score: "+score);
 		nextLevel.setDisable(true);
+		highScoreLabel.setText("High Score: " + getHighScore(currentLevel));
 	}
 	
 	public int getCurrentLevel() {
@@ -187,5 +200,42 @@ public class GamePane extends GridPane{
 			}
 		}
 		return true;
+	}
+	
+	public int getHighScore(int currentLevel) throws Exception { 
+		int highScore = 0;
+		Scanner scoresFile = new Scanner(new File("highscores.txt"));
+		while(scoresFile.hasNext()) {
+			String line = scoresFile.nextLine();
+			String[] parts = line.split("-");
+			if (parts[0].equals(String.valueOf(currentLevel)))
+					highScore = Integer.parseInt(parts[1]);
+		}
+		scoresFile.close();
+		return highScore;
+	}
+	
+	public void saveNewHighScore(int currentLevel, int score) throws Exception {
+		Scanner scoresFile = new Scanner(new File("highscores.txt"));
+		String[] scores = new String[LEVEL_COUNT];
+		int i = 0;
+		while(scoresFile.hasNext()) {
+			scores[i] = scoresFile.nextLine();
+			i++;		
+		}
+		scoresFile.close();
+		
+		scores[currentLevel-1] = currentLevel + "-" + score;
+		
+		if (new File("highscores.txt").exists()) {
+			new File("highscores.txt").delete();
+			
+			File highScoreFile = new File("highscores.txt");
+			PrintWriter writer = new PrintWriter(highScoreFile);
+			for (i = 0; i < scores.length; i++) {
+				writer.println(scores[i]);
+			}
+			writer.close();
+		}
 	}
 }
