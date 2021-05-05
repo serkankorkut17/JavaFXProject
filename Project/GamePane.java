@@ -20,16 +20,20 @@ public class GamePane extends GridPane{
 	private int currentLevel;
     MediaPlayer mediaPlayer;
 
-	public GamePane(Label scoreLabel,Label nextLevel, Label highScoreLabel) throws Exception {
+	public GamePane(Label scoreLabel,Label nextLevel, Label highScoreLabel) throws Exception {	
 		this.scoreLabel = scoreLabel;
 		this.nextLevel = nextLevel;
 		this.highScoreLabel = highScoreLabel;
-		scoreLabel.setText("Score: "+score);
-		highScoreLabel.setText("High Score: " + getHighScore(currentLevel));
-		currentLevel = 1;
-		String music = "deneme.mp3";
+		
+		String music = "sound.mp3";
 	    Media sound = new Media(new File(music).toURI().toString());
 	    mediaPlayer = new MediaPlayer(sound);
+	    
+	    currentLevel = 1;
+	    
+		scoreLabel.setText("Score: "+score);
+		highScoreLabel.setText("High Score: " + getHighScore(currentLevel));
+		
 		draw(currentLevel);
 	}
 	
@@ -54,14 +58,14 @@ public class GamePane extends GridPane{
 				});
 			}
 		}
-		Scanner levelfile = new Scanner(new File(String.format("Level%d.txt", currentLevel)));
+		
+		Scanner levelfile = new Scanner(new File(String.format("levels\\Level%d.txt", currentLevel)));
 		while(levelfile.hasNext()) {
 			String line = levelfile.nextLine();
 			String[] parts = line.split(",");
 			boxes[Integer.parseInt(parts[1])][Integer.parseInt(parts[2])].setType(parts[0]);
 		}
 		levelfile.close();
-		
 		
 	}
 	
@@ -109,7 +113,6 @@ public class GamePane extends GridPane{
 		mediaPlayer.stop();
 		mediaPlayer.seek(mediaPlayer.getStartTime());
 		mediaPlayer.play();
-		System.out.println(getHighScore(getCurrentLevel()));
 		
 		if (row < 9 && row > 0 && column < 9 && column > 0) {
 			hitOneBox(boxes[row][column]);
@@ -191,16 +194,6 @@ public class GamePane extends GridPane{
 		return currentLevel;
 	}
 	
-	private boolean isFinished() {
-		for(int row = 0;row<boxes.length;row++) {
-			for(int column = 0;column<boxes[0].length;column++) {
-				if(!boxes[row][column].getType().equals("Wall")&&!boxes[row][column].getType().equals("Empty"))
-					return false;
-			}
-		}
-		return true;
-	}
-	
 	public int getHighScore(int currentLevel) throws Exception { 
 		int highScore = 0;
 		Scanner scoresFile = new Scanner(new File("highscores.txt"));
@@ -236,5 +229,15 @@ public class GamePane extends GridPane{
 			}
 			writer.close();
 		}
+	}
+	
+	private boolean isFinished() {
+		for(int row = 0;row<boxes.length;row++) {
+			for(int column = 0;column<boxes[0].length;column++) {
+				if(!boxes[row][column].getType().equals("Wall")&&!boxes[row][column].getType().equals("Empty"))
+					return false;
+			}
+		}
+		return true;
 	}
 }

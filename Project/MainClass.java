@@ -13,48 +13,42 @@ public class MainClass extends Application{
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-		BorderPane mainPane = new BorderPane();
 		
-		BorderPane topPane = new BorderPane();
-		topPane.setMinHeight(10);
-		
+		Label currentLevel = new Label();
+		Label hit = new Label("---Text---");
+		Label scoreLabel = new Label();
+		Label highScoreLabel = new Label();
 		Label nextLevel = new Label("Next Level");
 		nextLevel.setDisable(true);
 		
-		Label scoreLabel = new Label();
-		Label highScoreLabel = new Label();
-		GamePane gamePane = new GamePane(scoreLabel,nextLevel,highScoreLabel);
-		
+		BorderPane mainPane = new BorderPane();	
+		BorderPane topPane = new BorderPane();
 		BorderPane bottomPane = new BorderPane();
-		Label hit = new Label("---Text---");
-		bottomPane.setLeft(hit);
-		
+		GamePane gamePane = new GamePane(scoreLabel,nextLevel,highScoreLabel);
+				
+		currentLevel.setText(String.format("Level %d", gamePane.getCurrentLevel()));		
 		gamePane.setOnMouseClicked(e->
 		{	hit.setText(gamePane.getPoints());;
 		});
+		nextLevel.setOnMouseClicked(e->{try {
+			gamePane.nextLevel();
+			currentLevel.setText(String.format("Level %d", gamePane.getCurrentLevel()));
+			hit.setText("---Text---");
+			} catch (Exception e1) {	
+					e1.printStackTrace();
+			}});
 		
-		Label currentLevel = new Label();
-		currentLevel.setText(String.format("Level %d", gamePane.getCurrentLevel()));
+		bottomPane.setLeft(hit);
+		bottomPane.setRight(nextLevel);
 		
 		topPane.setLeft(currentLevel);
 		topPane.setCenter(scoreLabel);
 		topPane.setRight(highScoreLabel);
 		
-		nextLevel.setOnMouseClicked(e->{try {
-			gamePane.nextLevel();
-			currentLevel.setText(String.format("Level %d", gamePane.getCurrentLevel()));
-			hit.setText("---Text---");
-			} catch (Exception e1) {
-			
-				e1.printStackTrace();
-			}});
-		
-		bottomPane.setRight(nextLevel);
-		
 		mainPane.setCenter(gamePane);
 		mainPane.setTop(topPane);
 		mainPane.setBottom(bottomPane);
-		
+			
 		Scene scene = new Scene(mainPane);
 		stage.setScene(scene);
 		stage.show();
