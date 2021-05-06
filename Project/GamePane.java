@@ -4,49 +4,72 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 
-public class GamePane extends GridPane{
+public class GamePane extends BorderPane{
 	private String points = "";
 	private int score;
-	private Label scoreLabel;
-	private Label nextLevel;
-	private Label highScoreLabel;
+	private Label scoreLabel = new Label();
+	private Label nextLevel = new Label("Next Level");
+	private Label highScoreLabel = new Label();
+	private Label currentLevelLabel = new Label();
+	private Label hit = new Label("---Text---");
 	private final int LEVEL_COUNT = 5;
 	private Box[][] boxes = new Box[10][10];
 	private int currentLevel;
     MediaPlayer mediaPlayer;
 
-	public GamePane(Label scoreLabel,Label nextLevel, Label highScoreLabel) throws Exception {	
-		this.scoreLabel = scoreLabel;
-		this.nextLevel = nextLevel;
-		this.highScoreLabel = highScoreLabel;
-		
+	public GamePane() throws Exception {
+		nextLevel.setOnMouseClicked(e->{try {
+			this.nextLevel();
+			currentLevelLabel.setText(String.format("Level %d", this.getCurrentLevel()));
+			hit.setText("---Text---");
+			} catch (Exception e1) {	
+					e1.printStackTrace();
+			}});
+		this.setOnMouseClicked(e->
+		{	hit.setText(this.getPoints());
+		});
 		String music = "sound.mp3";
 	    Media sound = new Media(new File(music).toURI().toString());
 	    mediaPlayer = new MediaPlayer(sound);
 	    
 	    currentLevel = 1;
 	    
+	    nextLevel.setDisable(true);
 		scoreLabel.setText("Score: "+score);
 		highScoreLabel.setText("High Score: " + getHighScore(currentLevel));
 		
+		currentLevelLabel.setText(String.format("Level %d", this.getCurrentLevel()));	
 		draw(currentLevel);
 	}
 	
 	public void draw(int currentLevel) throws Exception {
-		this.setPadding(new Insets(2, 2, 2, 2));
-		this.setStyle("-fx-background-color: #9c9a9a");
-		this.setHgap(2);
-		this.setVgap(2);
+		BorderPane topPane = new BorderPane();
+		topPane.setLeft(currentLevelLabel);
+		topPane.setCenter(scoreLabel);
+		topPane.setRight(highScoreLabel);
+		this.setTop(topPane);
+		
+		BorderPane bottomPane = new BorderPane();
+		bottomPane.setLeft(hit);
+		bottomPane.setRight(nextLevel);
+		this.setBottom(bottomPane);
+		
+		GridPane center = new GridPane();
+		center.setPadding(new Insets(2, 2, 2, 2));
+		center.setStyle("-fx-background-color: #9c9a9a");
+		center.setHgap(2);
+		center.setVgap(2);
 		 
 		for(int row = 0;row<10;row++) {
 			for(int column = 0;column<10;column++) {
 				boxes[row][column] = new Box("Wall");
-				this.add(boxes[row][column],column, row);
+				center.add(boxes[row][column],column, row);
 				boxes[row][column].setOnMouseClicked(e->
 				{	setPoints("");
 					Box box = (Box)e.getSource();
@@ -66,7 +89,7 @@ public class GamePane extends GridPane{
 			boxes[Integer.parseInt(parts[1])][Integer.parseInt(parts[2])].setType(parts[0]);
 		}
 		levelfile.close();
-		
+		this.setCenter(center);
 	}
 	
 	public String getPoints() {
