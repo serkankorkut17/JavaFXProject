@@ -18,23 +18,26 @@ public class GamePane extends BorderPane{
 	private Label nextLevel = new Label("Next Level");
 	private Label highScoreLabel = new Label();
 	private Label currentLevelLabel = new Label();
-	private Label hit = new Label("---Text---");
+	private Label hitLabel = new Label("---Text---");
 	private final int LEVEL_COUNT = 5;
 	private Box[][] boxes = new Box[10][10];
 	private int currentLevel;
     MediaPlayer mediaPlayer;
 
 	public GamePane() throws Exception {
-		nextLevel.setOnMouseClicked(e->{try {
+		nextLevel.setOnMouseClicked(e->
+			{try {
 			this.nextLevel();
 			currentLevelLabel.setText(String.format("Level %d", this.getCurrentLevel()));
-			hit.setText("---Text---");
+			hitLabel.setText("---Text---");
 			} catch (Exception e1) {	
 					e1.printStackTrace();
-			}});
+		}});
+		
 		this.setOnMouseClicked(e-> {	
-			hit.setText(this.getPoints());
+			hitLabel.setText(this.getPoints());
 		});
+		
 		String music = "sound.mp3";
 	    Media sound = new Media(new File(music).toURI().toString());
 	    mediaPlayer = new MediaPlayer(sound);
@@ -57,7 +60,7 @@ public class GamePane extends BorderPane{
 		this.setTop(topPane);
 		
 		BorderPane bottomPane = new BorderPane();
-		bottomPane.setLeft(hit);
+		bottomPane.setLeft(hitLabel);
 		bottomPane.setRight(nextLevel);
 		this.setBottom(bottomPane);
 		
