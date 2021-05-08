@@ -272,6 +272,18 @@ public class GamePane extends BorderPane{
 		}
 	}
 	
+	public void loadGame(String fileName) throws Exception {
+		File save = new File(fileName + ".txt");
+		
+		Scanner levelfile = new Scanner(save);
+		while(levelfile.hasNext()) {
+			String line = levelfile.nextLine();
+			String[] parts = line.split(",");
+			boxes[Integer.parseInt(parts[1])][Integer.parseInt(parts[2])].setType(parts[0]);
+		}
+		levelfile.close();
+	}
+	
 	private boolean isFinished() {
 		for(int row = 0;row<boxes.length;row++) {
 			for(int column = 0;column<boxes[0].length;column++) {

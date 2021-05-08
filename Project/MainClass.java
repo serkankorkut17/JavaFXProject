@@ -39,7 +39,9 @@ public class MainClass extends Application{
 					
 					Button load = new Button("Load");
 					load.setPrefSize(300, 50);
+					TextField loadtf = new TextField();
 					settings.add(load, 0, 1);
+					settings.add(loadtf, 1, 1);
 					
 					Button save = new Button("Save");
 					save.setPrefSize(300, 50);
@@ -68,6 +70,20 @@ public class MainClass extends Application{
 				    	if (!text.equals("")) {
 							try {
 								gamePane.saveGame(text);
+							} catch (Exception e1) {
+								e1.printStackTrace();
+							}
+				    	}
+				    	
+				    });
+			        
+			        load.setOnAction((e4)->
+				    {
+				    	String text = loadtf.getText();
+				    	System.out.print(text);
+				    	if (!text.equals("")) {
+							try {
+								gamePane.loadGame(text);
 							} catch (Exception e1) {
 								e1.printStackTrace();
 							}
