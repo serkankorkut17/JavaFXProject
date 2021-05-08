@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
@@ -31,8 +32,8 @@ public class GamePane extends BorderPane{
 			} catch (Exception e1) {	
 					e1.printStackTrace();
 			}});
-		this.setOnMouseClicked(e->
-		{	hit.setText(this.getPoints());
+		this.setOnMouseClicked(e-> {	
+			hit.setText(this.getPoints());
 		});
 		String music = "sound.mp3";
 	    Media sound = new Media(new File(music).toURI().toString());
@@ -70,13 +71,15 @@ public class GamePane extends BorderPane{
 			for(int column = 0;column<10;column++) {
 				boxes[row][column] = new Box("Wall");
 				center.add(boxes[row][column],column, row);
-				boxes[row][column].setOnMouseClicked(e->
-				{	setPoints("");
-					Box box = (Box)e.getSource();
-					try {
-						hitBoxes(box);
-					} catch (Exception e1) {
-						e1.printStackTrace();
+				boxes[row][column].setOnMouseClicked(e-> {
+					if (e.getButton() == MouseButton.PRIMARY) {
+						setPoints("");
+						Box box = (Box)e.getSource();
+						try {
+							hitBoxes(box);
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
 					}
 				});
 			}
