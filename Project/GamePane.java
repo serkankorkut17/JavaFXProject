@@ -254,6 +254,24 @@ public class GamePane extends BorderPane{
 		}
 	}
 	
+	public void saveGame(String fileName) throws Exception {
+		if (new File(fileName + ".txt").exists()) {
+			new File(fileName + ".txt").delete();
+		}
+		
+		File save = new File(fileName + ".txt");
+		if (!save.exists()) {
+			PrintWriter writer = new PrintWriter(save);
+			
+			for (int i = 0; i < boxes.length; i++) {
+				for (int j = 0; j < boxes[i].length; j++) {
+					writer.println(boxes[i][j].getType() + "," + i + "," + j);
+				}
+			}
+			writer.close();
+		}
+	}
+	
 	private boolean isFinished() {
 		for(int row = 0;row<boxes.length;row++) {
 			for(int column = 0;column<boxes[0].length;column++) {

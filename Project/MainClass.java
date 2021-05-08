@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -42,7 +43,9 @@ public class MainClass extends Application{
 					
 					Button save = new Button("Save");
 					save.setPrefSize(300, 50);
+					TextField tf = new TextField();
 					settings.add(save, 0, 2);
+					settings.add(tf, 1, 2);
 					
 					Slider volume = new Slider();
 					volume.setPrefSize(300, 50);
@@ -57,6 +60,19 @@ public class MainClass extends Application{
 				    {
 				    	stage.setScene(scene);
 				    	stage.show();
+				    });
+			        
+			        save.setOnAction((e3)->
+				    {
+				    	String text = tf.getText();
+				    	if (!text.equals("")) {
+							try {
+								gamePane.saveGame(text);
+							} catch (Exception e1) {
+								e1.printStackTrace();
+							}
+				    	}
+				    	
 				    });
 			}
 		});
