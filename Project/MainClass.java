@@ -80,7 +80,6 @@ public class MainClass extends Application{
 			        load.setOnAction((e4)->
 				    {
 				    	String text = loadtf.getText();
-				    	System.out.print(text);
 				    	if (!text.equals("")) {
 							try {
 								gamePane.loadGame(text);
