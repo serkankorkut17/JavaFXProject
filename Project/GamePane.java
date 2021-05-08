@@ -13,7 +13,7 @@ import javafx.scene.media.MediaPlayer;
 
 public class GamePane extends BorderPane{
 	private String points = "";
-	private int score;
+	private int score = 0;
 	private Label scoreLabel = new Label();
 	private Label nextLevel = new Label("Next Level");
 	private Label highScoreLabel = new Label();
@@ -25,8 +25,8 @@ public class GamePane extends BorderPane{
     MediaPlayer mediaPlayer;
 
 	public GamePane() throws Exception {
-		nextLevel.setOnMouseClicked(e->
-			{try {
+		nextLevel.setOnMouseClicked(e->{
+			try {
 			this.nextLevel();
 			currentLevelLabel.setText(String.format("Level %d", this.getCurrentLevel()));
 			hitLabel.setText("---Text---");
