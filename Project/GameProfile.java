@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class GameProfile {
 	
 	boolean isStarted;
+	
 	public GameProfile() {
 		if(!new File("profile/save.txt").exists() || !new File("profile/highscores.txt").exists() ) {
 			createProfile();
@@ -84,7 +85,6 @@ public class GameProfile {
 			}
 			writer.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 	}
@@ -96,10 +96,8 @@ public class GameProfile {
 			reader.close();
 			return result;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}		
 	}
-
 }

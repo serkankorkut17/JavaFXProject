@@ -2,6 +2,8 @@
 import java.io.File;
 import java.util.Scanner;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
@@ -82,6 +84,12 @@ public class GamePane extends BorderPane{
 		BorderPane bottomPane = new BorderPane();
 		bottomPane.setLeft(hitLabel);
 		bottomPane.setRight(nextLevel);
+		Label menuLabel = new Label("Menu");
+		menuLabel.setOnMouseClicked(e->{profile.saveProfile(currentLevel, hitLabel.getText(), scoreLabel.getText(), boxes);
+			stage.setScene(new Scene(new MenuPane(stage)));
+		});
+		bottomPane.setBottom(menuLabel);
+		BorderPane.setAlignment(menuLabel, Pos.CENTER);
 		this.setBottom(bottomPane);
 		
 		GridPane center = new GridPane();
@@ -246,18 +254,6 @@ public class GamePane extends BorderPane{
 	
 	public int getCurrentLevel() {
 		return currentLevel;
-	}
-	
-	public void loadGame(String fileName) throws Exception {
-		File save = new File(fileName + ".txt");
-		
-		Scanner levelfile = new Scanner(save);
-		while(levelfile.hasNext()) {
-			String line = levelfile.nextLine();
-			String[] parts = line.split(",");
-			boxes[Integer.parseInt(parts[1])][Integer.parseInt(parts[2])].setType(parts[0]);
-		}
-		levelfile.close();
 	}
 	
 	private boolean isFinished() {
