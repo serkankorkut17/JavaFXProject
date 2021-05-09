@@ -64,10 +64,12 @@ public class GamePane extends BorderPane{
 	    nextLevel.setDisable(true);
 		
 		highScoreLabel.setText("High Score: " + profile.getHighScore(currentLevel));
-		
-		
-		
+			
 		draw(currentLevel);
+		
+		if(isFinished()) {
+			nextLevel.setDisable(false);
+		}
 	}
 	
 	public void draw(int currentLevel) throws Exception {
@@ -177,7 +179,6 @@ public class GamePane extends BorderPane{
 				setPoints(getPoints() + " - Hit:" + (row+1) + "," + column);
 				hits++;
 			}
-			
 			if(boxes[row-1][column].getType().equals("Mirror") || boxes[row-1][column].getType().equals("Wood")) {
 				hitOneBox(boxes[row-1][column]);
 				setPoints(getPoints() + " - Hit:" + (row-1) + "," + column);
