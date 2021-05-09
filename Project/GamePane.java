@@ -1,6 +1,5 @@
 
 import java.io.File;
-import java.io.PrintWriter;
 import java.util.Scanner;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -9,9 +8,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 
 
 public class GamePane extends BorderPane{
+	Stage stage;
+	private boolean isFirstStart;
 	private String points = "";
 	private int score = 0;
 	private Label scoreLabel = new Label();
@@ -23,8 +25,24 @@ public class GamePane extends BorderPane{
 	private Box[][] boxes = new Box[10][10];
 	private int currentLevel;
     MediaPlayer mediaPlayer;
-
-	public GamePane() throws Exception {
+    GameProfile profile;
+	public GamePane(String profileName,Stage stage) throws Exception {
+		this.stage = stage;
+		stage.setOnCloseRequest(e->profile.saveProfile(currentLevel, hitLabel.getText(), scoreLabel.getText(), boxes));
+		this.profile = new GameProfile();
+		if(!new File("profile/boxes.txt").exists()) {
+			currentLevel = 1;
+			scoreLabel.setText("Score: "+score);
+			currentLevelLabel.setText(String.format("Level %d", this.getCurrentLevel()));			
+		}
+		else{
+			String[] labels = profile.loadLabels();
+			currentLevelLabel.setText(labels[0]);
+			hitLabel.setText(labels[1]);
+			scoreLabel.setText(labels[2]);
+			currentLevel = Integer.parseInt(labels[0].split(" ")[1]);
+			isFirstStart = true;
+		}
 		nextLevel.setOnMouseClicked(e->{
 			try {
 			this.nextLevel();
@@ -42,13 +60,13 @@ public class GamePane extends BorderPane{
 	    Media sound = new Media(new File(music).toURI().toString());
 	    mediaPlayer = new MediaPlayer(sound);
 	    
-	    currentLevel = 1;
-	    
+
 	    nextLevel.setDisable(true);
-		scoreLabel.setText("Score: "+score);
-		highScoreLabel.setText("High Score: " + getHighScore(currentLevel));
 		
-		currentLevelLabel.setText(String.format("Level %d", this.getCurrentLevel()));	
+		highScoreLabel.setText("High Score: " + profile.getHighScore(currentLevel));
+		
+		
+		
 		draw(currentLevel);
 	}
 	
@@ -85,10 +103,16 @@ public class GamePane extends BorderPane{
 						}
 					}
 				});
-			}
+			}	
 		}
-		
-		Scanner levelfile = new Scanner(new File(String.format("levels\\Level%d.txt", currentLevel)));
+		Scanner levelfile;
+		if(isFirstStart) {
+			levelfile = new Scanner(new File("profile/boxes.txt"));
+			isFirstStart = false;	
+		}
+		else {
+			levelfile = new Scanner(new File("levels/Level"+currentLevel+".txt"));
+		}
 		while(levelfile.hasNext()) {
 			String line = levelfile.nextLine();
 			String[] parts = line.split(",");
@@ -197,8 +221,8 @@ public class GamePane extends BorderPane{
 			scoreLabel.setText("Score: "+score);
 			if(isFinished()) {
 				nextLevel.setDisable(false);
-				if (getHighScore(getCurrentLevel()) < score ) {
-					saveNewHighScore(getCurrentLevel(), score);
+				if (profile.getHighScore(getCurrentLevel()) < score ) {
+					profile.saveNewHighScore(getCurrentLevel(), score,LEVEL_COUNT);
 				}
 			}
 		}
@@ -216,66 +240,11 @@ public class GamePane extends BorderPane{
 		score = 0;
 		scoreLabel.setText("Score: "+score);
 		nextLevel.setDisable(true);
-		highScoreLabel.setText("High Score: " + getHighScore(currentLevel));
+		highScoreLabel.setText("High Score: " + profile.getHighScore(currentLevel));
 	}
 	
 	public int getCurrentLevel() {
 		return currentLevel;
-	}
-	
-	public int getHighScore(int currentLevel) throws Exception { 
-		int highScore = 0;
-		Scanner scoresFile = new Scanner(new File("highscores.txt"));
-		while(scoresFile.hasNext()) {
-			String line = scoresFile.nextLine();
-			String[] parts = line.split("-");
-			if (parts[0].equals(String.valueOf(currentLevel)))
-					highScore = Integer.parseInt(parts[1]);
-		}
-		scoresFile.close();
-		return highScore;
-	}
-	
-	public void saveNewHighScore(int currentLevel, int score) throws Exception {
-		Scanner scoresFile = new Scanner(new File("highscores.txt"));
-		String[] scores = new String[LEVEL_COUNT];
-		int i = 0;
-		while(scoresFile.hasNext()) {
-			scores[i] = scoresFile.nextLine();
-			i++;		
-		}
-		scoresFile.close();
-		
-		scores[currentLevel-1] = currentLevel + "-" + score;
-		
-		if (new File("highscores.txt").exists()) {
-			new File("highscores.txt").delete();
-			
-			File highScoreFile = new File("highscores.txt");
-			PrintWriter writer = new PrintWriter(highScoreFile);
-			for (i = 0; i < scores.length; i++) {
-				writer.println(scores[i]);
-			}
-			writer.close();
-		}
-	}
-	
-	public void saveGame(String fileName) throws Exception {
-		if (new File(fileName + ".txt").exists()) {
-			new File(fileName + ".txt").delete();
-		}
-		
-		File save = new File(fileName + ".txt");
-		if (!save.exists()) {
-			PrintWriter writer = new PrintWriter(save);
-			
-			for (int i = 0; i < boxes.length; i++) {
-				for (int j = 0; j < boxes[i].length; j++) {
-					writer.println(boxes[i][j].getType() + "," + i + "," + j);
-				}
-			}
-			writer.close();
-		}
 	}
 	
 	public void loadGame(String fileName) throws Exception {

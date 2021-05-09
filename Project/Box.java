@@ -1,11 +1,12 @@
 
+import java.io.File;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Box extends ImageView {
 
 	private String type;
-	
 	private static Image wall = new Image("images\\wall.png");
 	private static Image mirror = new Image("images\\mirror.png");
 	private static Image wood = new Image("images\\wood.png");
