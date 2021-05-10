@@ -54,7 +54,8 @@ public class MenuPane extends GridPane {
 			pane.setPrefWidth(300);
 			ArrayList<Integer> highScoresList = GameProfile.getHighScores();
 			for(int i = 0;i<GamePane.LEVEL_COUNT;i++) {
-				pane.getChildren().add(new Label(String.format("Level %d: %d",i+1,highScoresList == null ? 0 : highScoresList.get(i))));
+				pane.getChildren().add(new Label(String.format("Level %d: %s",i+1,highScoresList == null ? "-" : (highScoresList.get(i) == 0 ? "-" : String.valueOf(highScoresList.get(i))  ))));
+			//	pane.getChildren().add(new Label(String.format("Level %d: %d",i+1,highScoresList == null ? 0 : highScoresList.get(i))));
 			}
 		
 			Stage highScoresStage = new Stage();
