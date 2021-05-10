@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 public class MenuPane extends GridPane {
 	Stage stage;
 	GamePane gamePane;
+	private Slider volumeSlider;
 	public MenuPane(Stage stage) {
 		this.stage = stage;
 		try {
@@ -77,7 +78,7 @@ public class MenuPane extends GridPane {
 		highScores.setPrefSize(300, 50);
 		add(highScores,0,2);
 		
-		Slider volumeSlider = new Slider();
+		volumeSlider = new Slider();
 		volumeSlider.setPrefSize(300, 50);
 		add(volumeSlider, 0, 3);
 		
@@ -90,5 +91,9 @@ public class MenuPane extends GridPane {
 			}
 		});
 		
+	}
+	
+	public void setVolumeSlider(double volume) {
+		volumeSlider.setValue(volume * 100);
 	}
 }
