@@ -42,6 +42,7 @@ public class GamePane extends BorderPane{
 			currentLevelLabel.setText(labels[0]);
 			hitLabel.setText(labels[1]);
 			scoreLabel.setText(labels[2]);
+			score = Integer.parseInt(labels[2].split(" ")[1]);
 			currentLevel = Integer.parseInt(labels[0].split(" ")[1]);
 			isFirstStart = true;
 		}
