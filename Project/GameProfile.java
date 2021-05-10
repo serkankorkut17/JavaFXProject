@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GameProfile {
@@ -13,6 +14,9 @@ public class GameProfile {
 		}	
 	}
 	public void saveProfile(int currentLevel,String hitLabel,String scoreLabel, Box[][] boxes) {
+		if(!new File("profile/save.txt").exists() || !new File("profile/highscores.txt").exists() ) {
+			createProfile();
+		}
 		File file = new File("profile/");
 		File saveFile = new File(file+"/save.txt");
 		File saveBox = new File(file+"/boxes.txt");
@@ -99,5 +103,24 @@ public class GameProfile {
 			e.printStackTrace();
 			return null;
 		}		
+	}
+	
+	public static ArrayList<Integer> getHighScores(){
+		File highScoresFile = new File("profile/highscores.txt");
+		if(!highScoresFile.exists())
+			return null;
+		try {
+			ArrayList<Integer> highScores = new ArrayList<Integer>();
+			Scanner reader = new Scanner(highScoresFile);
+			while(reader.hasNext()) {
+				int highScore = Integer.parseInt(reader.nextLine().split("-")[1]);
+				highScores.add(highScore);
+			}
+			reader.close();
+			return highScores;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

@@ -23,7 +23,7 @@ public class GamePane extends BorderPane{
 	private Label highScoreLabel = new Label();
 	private Label currentLevelLabel = new Label();
 	private Label hitLabel = new Label("---Text---");
-	private final int LEVEL_COUNT = 5;
+	public static final int LEVEL_COUNT = 5;
 	private Box[][] boxes = new Box[10][10];
 	private int currentLevel;
     MediaPlayer mediaPlayer;
@@ -83,14 +83,14 @@ public class GamePane extends BorderPane{
 		this.setTop(topPane);
 		
 		BorderPane bottomPane = new BorderPane();
-		bottomPane.setLeft(hitLabel);
-		bottomPane.setRight(nextLevel);
+		
 		Label menuLabel = new Label("Menu");
 		menuLabel.setOnMouseClicked(e->{profile.saveProfile(currentLevel, hitLabel.getText(), scoreLabel.getText(), boxes);
 			stage.setScene(new Scene(new MenuPane(stage)));
 		});
-		bottomPane.setBottom(menuLabel);
-		BorderPane.setAlignment(menuLabel, Pos.CENTER);
+		bottomPane.setCenter(hitLabel);
+		bottomPane.setLeft(menuLabel);
+		bottomPane.setRight(nextLevel);
 		this.setBottom(bottomPane);
 		
 		GridPane center = new GridPane();

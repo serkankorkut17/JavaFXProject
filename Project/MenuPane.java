@@ -1,10 +1,12 @@
 import java.io.File;
-
+import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MenuPane extends GridPane {
@@ -45,12 +47,29 @@ public class MenuPane extends GridPane {
 		});
 		newGame.setPrefSize(300, 50);
 		add(newGame, 0, 1);
+		
+		Button highScores = new Button("High Scores");
+		highScores.setOnMouseClicked(e->{
+			VBox pane = new VBox();
+			pane.setPrefWidth(300);
+			ArrayList<Integer> highScoresList = GameProfile.getHighScores();
+			for(int i = 0;i<GamePane.LEVEL_COUNT;i++) {
+				pane.getChildren().add(new Label(String.format("Level %d: %d",i+1,highScoresList == null ? 0 : highScoresList.get(i))));
+			}
+		
+			Stage highScoresStage = new Stage();
+			highScoresStage.setTitle("High Scores");
+			highScoresStage.setScene(new Scene(pane));
+			highScoresStage.show();
 
+			
+		});
+		highScores.setPrefSize(300, 50);
+		add(highScores,0,2);
 		
 		Slider volume = new Slider();
 		volume.setPrefSize(300, 50);
-		add(volume, 0, 2);
+		add(volume, 0, 3);
 		
 	}
-	
 }
