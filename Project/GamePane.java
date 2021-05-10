@@ -25,7 +25,7 @@ public class GamePane extends BorderPane{
 	public static final int LEVEL_COUNT = 5;
 	private Box[][] boxes = new Box[10][10];
 	private int currentLevel;
-    MediaPlayer mediaPlayer;
+    MediaPlayer mp;
     GameProfile profile;
 	public GamePane(Stage stage) throws Exception {
 		this.stage = stage;
@@ -60,7 +60,7 @@ public class GamePane extends BorderPane{
 		
 		String music = "sound.mp3";
 	    Media sound = new Media(new File(music).toURI().toString());
-	    mediaPlayer = new MediaPlayer(sound);
+	    mp = new MediaPlayer(sound);
 	    
 
 	    nextLevel.setDisable(true);
@@ -176,9 +176,9 @@ public class GamePane extends BorderPane{
 			}
 		}
 		
-		mediaPlayer.stop();
-		mediaPlayer.seek(mediaPlayer.getStartTime());
-		mediaPlayer.play();
+		mp.stop();
+		mp.seek(mp.getStartTime());
+		mp.play();
 		
 		if (row < 9 && row > 0 && column < 9 && column > 0) {
 			hitOneBox(boxes[row][column]);
@@ -258,6 +258,14 @@ public class GamePane extends BorderPane{
 	
 	public int getCurrentLevel() {
 		return currentLevel;
+	}
+	
+	public double getVolume() {
+		return mp.getVolume();
+	}
+	
+	public void setVolume(double d) {
+		mp.setVolume(d);
 	}
 	
 	private boolean isFinished() {

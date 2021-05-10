@@ -1,5 +1,8 @@
 import java.io.File;
 import java.util.ArrayList;
+
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,8 +14,14 @@ import javafx.stage.Stage;
 
 public class MenuPane extends GridPane {
 	Stage stage;
+	GamePane gamePane;
 	public MenuPane(Stage stage) {
 		this.stage = stage;
+		try {
+			gamePane = new GamePane(stage);
+		} catch (Exception e2) {
+			e2.printStackTrace();
+		}
 		setPadding(new Insets(100, 100, 100, 100));
 		setHgap(100);
 		setVgap(100);
@@ -22,7 +31,7 @@ public class MenuPane extends GridPane {
 		add(play, 0, 0);
 		play.setOnMouseClicked(e->{
 			try {
-				stage.setScene(new Scene(new GamePane(stage)));
+				stage.setScene(new Scene(gamePane));
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -68,9 +77,18 @@ public class MenuPane extends GridPane {
 		highScores.setPrefSize(300, 50);
 		add(highScores,0,2);
 		
-		Slider volume = new Slider();
-		volume.setPrefSize(300, 50);
-		add(volume, 0, 3);
+		Slider volumeSlider = new Slider();
+		volumeSlider.setPrefSize(300, 50);
+		add(volumeSlider, 0, 3);
+		
+		volumeSlider.setValue(gamePane.getVolume() * 100);
+		volumeSlider.valueProperty().addListener(new InvalidationListener() {
+			
+			@Override
+			public void invalidated(Observable observable) {
+				gamePane.setVolume(volumeSlider.getValue() / 100);
+			}
+		});
 		
 	}
 }
