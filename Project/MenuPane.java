@@ -18,11 +18,13 @@ public class MenuPane extends GridPane {
 	private Slider volumeSlider;
 	public MenuPane(Stage stage) {
 		this.stage = stage;
+		/////////////////////////////////////
 		try {
 			gamePane = new GamePane(stage);
 		} catch (Exception e2) {
 			e2.printStackTrace();
 		}
+		////////////////////////////////////
 		setPadding(new Insets(100, 100, 100, 100));
 		setHgap(100);
 		setVgap(100);
@@ -32,8 +34,8 @@ public class MenuPane extends GridPane {
 		add(play, 0, 0);
 		play.setOnMouseClicked(e->{
 			try {
-			//	stage.setScene(new Scene(new GamePane(stage)));
 				stage.setScene(new Scene(gamePane));
+			//	stage.setScene(new Scene(new GamePane(stage)));
 				
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
