@@ -86,10 +86,12 @@ public class GamePane extends BorderPane{
 		Label menuLabel = new Label("Menu");
 		menuLabel.setOnMouseClicked(e->{profile.saveProfile(currentLevel, hitLabel.getText(), scoreLabel.getText(), boxes);
 			stage.close();
+			
 			MenuPane menuPane = new MenuPane(stage);
 			menuPane.setVolumeSlider(getVolume());
 			stage.setScene(new Scene(menuPane));
 		//	stage.setScene(new Scene(new MenuPane(stage)));
+			
 			stage.show();
 			stage.setOnCloseRequest(null);	
 		});

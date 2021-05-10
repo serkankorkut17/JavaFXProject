@@ -32,7 +32,9 @@ public class MenuPane extends GridPane {
 		add(play, 0, 0);
 		play.setOnMouseClicked(e->{
 			try {
+			//	stage.setScene(new Scene(new GamePane(stage)));
 				stage.setScene(new Scene(gamePane));
+				
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
