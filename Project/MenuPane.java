@@ -85,7 +85,7 @@ public class MenuPane extends GridPane {
 		volumeSlider = new Slider();
 		volumeSlider.setPrefSize(300, 50);
 		add(volumeSlider, 0, 3);
-		
+		///////////////////////////////////////////////////////////////////////////
 		volumeSlider.setValue(gamePane.getVolume() * 100);
 		volumeSlider.valueProperty().addListener(new InvalidationListener() {
 			
@@ -94,7 +94,7 @@ public class MenuPane extends GridPane {
 				gamePane.setVolume(volumeSlider.getValue() / 100);
 			}
 		});
-		
+		///////////////////////////////////////////////////////////////////////////
 	}
 	
 	public void setVolumeSlider(double volume) {
