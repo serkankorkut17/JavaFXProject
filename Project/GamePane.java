@@ -2,7 +2,6 @@
 import java.io.File;
 import java.util.Scanner;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
@@ -28,7 +27,7 @@ public class GamePane extends BorderPane{
 	private int currentLevel;
     MediaPlayer mediaPlayer;
     GameProfile profile;
-	public GamePane(String profileName,Stage stage) throws Exception {
+	public GamePane(Stage stage) throws Exception {
 		this.stage = stage;
 		stage.setOnCloseRequest(e->profile.saveProfile(currentLevel, hitLabel.getText(), scoreLabel.getText(), boxes));
 		this.profile = new GameProfile();
@@ -87,6 +86,7 @@ public class GamePane extends BorderPane{
 		Label menuLabel = new Label("Menu");
 		menuLabel.setOnMouseClicked(e->{profile.saveProfile(currentLevel, hitLabel.getText(), scoreLabel.getText(), boxes);
 			stage.setScene(new Scene(new MenuPane(stage)));
+			stage.setOnCloseRequest(null);
 		});
 		bottomPane.setCenter(hitLabel);
 		bottomPane.setLeft(menuLabel);
