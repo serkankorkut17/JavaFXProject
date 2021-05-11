@@ -167,13 +167,13 @@ public class GamePane extends BorderPane{
 			ft.setToValue(0.1);
 			ft.setCycleCount(5);
 			ft.setAutoReverse(true);
-			ft.play(); // Start animation 
+			ft.play(); 
 			rft = new FadeTransition(Duration.millis(50), box);
 			rft.setFromValue(.1);
 			rft.setToValue(1.0);
 			rft.setCycleCount(5);
 			rft.setAutoReverse(true);
-			rft.play(); // Start animation 
+			rft.play(); 
 			box.setType("Mirror");
 			break;
 		case("Mirror"):
