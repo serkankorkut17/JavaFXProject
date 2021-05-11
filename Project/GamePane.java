@@ -26,6 +26,7 @@ public class GamePane extends BorderPane{
 	private Box[][] boxes = new Box[10][10];
 	private int currentLevel;
     MediaPlayer mp;
+    MediaPlayer lvlMP;
     GameProfile profile;
 	public GamePane(Stage stage) throws Exception {
 		this.stage = stage;
@@ -61,6 +62,9 @@ public class GamePane extends BorderPane{
 		String music = "sound.mp3";
 	    Media sound = new Media(new File(music).toURI().toString());
 	    mp = new MediaPlayer(sound);
+	    
+	    Media lvl = new Media(new File("levelup.mp3").toURI().toString());
+	    lvlMP = new MediaPlayer(lvl);
 	    
 
 	    nextLevel.setDisable(true);
@@ -233,6 +237,9 @@ public class GamePane extends BorderPane{
 			scoreLabel.setText("Score: "+score);
 			if(isFinished()) {
 				nextLevel.setDisable(false);
+				mp.stop();
+				lvlMP.seek(lvlMP.getStartTime());
+				lvlMP.play();
 				if (profile.getHighScore(getCurrentLevel()).equals("*")||Integer.parseInt(profile.getHighScore(getCurrentLevel())) < score ) {
 					profile.saveNewHighScore(getCurrentLevel(), score,LEVEL_COUNT);
 					highScoreLabel.setText("High Score: "+String.valueOf(profile.getHighScore(currentLevel)));
