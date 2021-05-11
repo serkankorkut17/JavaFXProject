@@ -1,6 +1,9 @@
 
 import java.io.File;
 import java.util.Scanner;
+
+import javafx.animation.FadeTransition;
+import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -10,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
 public class GamePane extends BorderPane{
@@ -154,11 +158,37 @@ public class GamePane extends BorderPane{
 	
 	public void hitOneBox(Box box) {
 		String type = box.getType();
+		FadeTransition ft;
+		FadeTransition rft;
 		switch(type) {
 		case("Wood"):
+			ft = new FadeTransition(Duration.millis(50), box);
+			ft.setFromValue(1.0);
+			ft.setToValue(0.1);
+			ft.setCycleCount(5);
+			ft.setAutoReverse(true);
+			ft.play(); // Start animation 
+			rft = new FadeTransition(Duration.millis(50), box);
+			rft.setFromValue(.1);
+			rft.setToValue(1.0);
+			rft.setCycleCount(5);
+			rft.setAutoReverse(true);
+			rft.play(); // Start animation 
 			box.setType("Mirror");
 			break;
 		case("Mirror"):
+			ft = new FadeTransition(Duration.millis(50), box);
+			ft.setFromValue(1.0);
+			ft.setToValue(0.1);
+			ft.setCycleCount(5);
+			ft.setAutoReverse(true);
+			ft.play();
+			rft = new FadeTransition(Duration.millis(50), box);
+			rft.setFromValue(0.1);
+			rft.setToValue(1.0);
+			rft.setCycleCount(5);
+			rft.setAutoReverse(true);
+			rft.play(); 
 			box.setType("Empty");
 			break;
 		case("Wall"):
