@@ -18,7 +18,7 @@ public class MenuPane extends GridPane {
 		setPadding(new Insets(100, 100, 100, 100));
 		setHgap(100);
 		setVgap(100);
-		setStyle("-fx-background-color: #9c9a9a");
+		setStyle("-fx-background-color:#3c474f");
 		
 		Slider volumeSlider = new Slider();
 		volumeSlider.setPrefSize(300, 50);
@@ -78,7 +78,6 @@ public class MenuPane extends GridPane {
 		});
 		highScores.setPrefSize(300, 50);
 		add(highScores,0,2);
-		
 		
 	}
 }

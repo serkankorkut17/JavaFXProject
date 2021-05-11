@@ -109,7 +109,7 @@ public class GamePane extends BorderPane{
 		
 		GridPane center = new GridPane();
 		center.setPadding(new Insets(2, 2, 2, 2));
-		center.setStyle("-fx-background-color: #9c9a9a");
+		center.setStyle("-fx-background-color: #262d33");
 		center.setHgap(2);
 		center.setVgap(2);
 		 
