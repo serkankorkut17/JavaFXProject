@@ -48,7 +48,7 @@ public class GameProfile {
 		}
 		scoresFile.close();
 		
-		scores[currentLevel-1] = currentLevel + "-" + score;
+		scores[currentLevel-1] = currentLevel + "/" + score;
 		
 		if (new File(path).exists()) {
 			new File(path).delete();
@@ -62,15 +62,15 @@ public class GameProfile {
 		}
 	}
 	
-	public int getHighScore(int level) throws Exception {
+	public String getHighScore(int level) throws Exception {
 		String path = "profile/highscores.txt";
-		int highScore = 0;
+		String highScore = "*";
 		Scanner scoresFile = new Scanner(new File(path));
 		while(scoresFile.hasNext()) {
 			String line = scoresFile.nextLine();
-			String[] parts = line.split("-");
+			String[] parts = line.split("/");
 			if (parts[0].equals(String.valueOf(level)))
-					highScore = Integer.parseInt(parts[1]);
+					highScore = parts[1];
 		}
 		scoresFile.close();
 		return highScore;
@@ -85,7 +85,7 @@ public class GameProfile {
 			writer.close();
 			writer = new PrintWriter(file+"/highscores.txt");
 			for(int i = 0;i<5;i++) {
-				writer.println((i+1)+"-"+0);
+				writer.println((i+1)+"/*");
 			}
 			writer.close();
 		} catch (FileNotFoundException e) {
@@ -105,15 +105,15 @@ public class GameProfile {
 		}		
 	}
 	
-	public static ArrayList<Integer> getHighScores(){
+	public static ArrayList<String> getHighScores(){
 		File highScoresFile = new File("profile/highscores.txt");
 		if(!highScoresFile.exists())
 			return null;
 		try {
-			ArrayList<Integer> highScores = new ArrayList<Integer>();
+			ArrayList<String> highScores = new ArrayList<String>();
 			Scanner reader = new Scanner(highScoresFile);
 			while(reader.hasNext()) {
-				int highScore = Integer.parseInt(reader.nextLine().split("-")[1]);
+				String highScore = reader.nextLine().split("/")[1];
 				highScores.add(highScore);
 			}
 			reader.close();

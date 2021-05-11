@@ -233,7 +233,7 @@ public class GamePane extends BorderPane{
 			scoreLabel.setText("Score: "+score);
 			if(isFinished()) {
 				nextLevel.setDisable(false);
-				if (profile.getHighScore(getCurrentLevel()) < score ) {
+				if (profile.getHighScore(getCurrentLevel()).equals("*")||Integer.parseInt(profile.getHighScore(getCurrentLevel())) < score ) {
 					profile.saveNewHighScore(getCurrentLevel(), score,LEVEL_COUNT);
 					highScoreLabel.setText("High Score: "+String.valueOf(profile.getHighScore(currentLevel)));
 				}
