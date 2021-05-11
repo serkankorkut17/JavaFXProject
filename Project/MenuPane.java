@@ -1,5 +1,4 @@
 import java.io.File;
-import java.time.Duration;
 import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -37,7 +36,6 @@ public class MenuPane extends GridPane {
 				stage.setScene(new Scene(new GamePane(stage,volumeSlider.getValue()/100)));
 				
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});

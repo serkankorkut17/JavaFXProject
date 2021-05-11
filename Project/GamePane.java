@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -160,77 +159,51 @@ public class GamePane extends BorderPane{
 	
 	public void hitOneBox(Box box) {
 		String type = box.getType();
-		PathTransition pt;
-		PathTransition rpt;
-		FadeTransition ft;
-		FadeTransition rft;
-		Circle circle = new Circle(box.getX()+27, box.getY()+30, 3);
 		switch(type) {
-		case("Wood"):
-			ft = new FadeTransition(Duration.millis(100), box);
-			ft.setFromValue(1.0);
-			ft.setToValue(0.1);
-			ft.setCycleCount(5);
-			ft.setAutoReverse(true);
-			pt = new PathTransition();
-			pt.setNode(box);
-			pt.setDuration(Duration.millis(100));
-			pt.setPath(circle);
-			pt.setCycleCount(5);
-			pt.setAutoReverse(true);
-			pt.play(); 
-			ft.play();
-			
-			rft = new FadeTransition(Duration.millis(100), box);
-			rft.setFromValue(0.1);
-			rft.setToValue(1.0);
-			rft.setCycleCount(5);
-			rft.setAutoReverse(true);
-			rpt = new PathTransition();
-			rpt.setNode(box);
-			rpt.setDuration(Duration.millis(100));
-			rpt.setPath(circle);
-			rpt.setCycleCount(5);
-			rpt.setAutoReverse(true);
-			rpt.play();
-			rft.play();
+		case("Wood"):	
 			box.setType("Mirror");
+			animation(box);
 			break;
 		case("Mirror"):
-			ft = new FadeTransition(Duration.millis(100), box);
-			ft.setFromValue(1.0);
-			ft.setToValue(0.1);
-			ft.setCycleCount(5);
-			ft.setAutoReverse(true);
-			pt = new PathTransition();
-			pt.setNode(box);
-			pt.setDuration(Duration.millis(100));
-			pt.setPath(circle);
-			pt.setCycleCount(5);
-			pt.setAutoReverse(true);
-			pt.play(); 
-			ft.play();
-			
-			rft = new FadeTransition(Duration.millis(100), box);
-			rft.setFromValue(0.1);
-			rft.setToValue(1.0);
-			rft.setCycleCount(5);
-			rft.setAutoReverse(true);
-			rpt = new PathTransition();
-			rpt.setNode(box);
-			rpt.setDuration(Duration.millis(100));
-			rpt.setPath(circle);
-			rpt.setCycleCount(5);
-			rpt.setAutoReverse(true);
-			rpt.play();
-			rft.play();
 			box.setType("Empty");
+			animation(box);
 			break;
 		case("Wall"):
 			break;
 		case("Empty"):
 			break;
 		}
+	}
+
+	private void animation(Box box) {
+		Circle circle = new Circle(box.getX()+27, box.getY()+30, 3);
+		FadeTransition ft = new FadeTransition(Duration.millis(100), box);
+		ft.setFromValue(1.0);
+		ft.setToValue(0.1);
+		ft.setCycleCount(5);
+		ft.setAutoReverse(true);
+		PathTransition pt = new PathTransition();
+		pt.setNode(box);
+		pt.setDuration(Duration.millis(100));
+		pt.setPath(circle);
+		pt.setCycleCount(5);
+		pt.setAutoReverse(true);
+		pt.play(); 
+		ft.play();
+		
+		FadeTransition rft = new FadeTransition(Duration.millis(100), box);
+		rft.setFromValue(0.1);
+		rft.setToValue(1.0);
+		rft.setCycleCount(5);
+		rft.setAutoReverse(true);
+		PathTransition rpt = new PathTransition();
+		rpt.setNode(box);
+		rpt.setDuration(Duration.millis(100));
+		rpt.setPath(circle);
+		rpt.setCycleCount(5);
+		rpt.setAutoReverse(true);
+		rpt.play();
+		rft.play();
 	}
 	
 	public void hitBoxes(Box box) throws Exception {
