@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -35,6 +36,11 @@ public class GamePane extends BorderPane{
     MediaPlayer lvlMP;
     GameProfile profile;
 	public GamePane(Stage stage,double volume) throws Exception {
+		scoreLabel.setTextFill(Color.WHITE);
+		nextLevel.setTextFill(Color.WHITE);
+		highScoreLabel.setTextFill(Color.WHITE);
+		currentLevelLabel.setTextFill(Color.WHITE);
+		hitLabel.setTextFill(Color.WHITE);
 		this.stage = stage;
 		stage.setOnCloseRequest(e->profile.saveProfile(currentLevel, hitLabel.getText(), scoreLabel.getText(), boxes,this.volume));
 		this.profile = new GameProfile();
@@ -91,11 +97,13 @@ public class GamePane extends BorderPane{
 		topPane.setLeft(currentLevelLabel);
 		topPane.setCenter(scoreLabel);
 		topPane.setRight(highScoreLabel);
+		topPane.setStyle("-fx-background-color:#3c474f");
 		this.setTop(topPane);
 		
 		BorderPane bottomPane = new BorderPane();
 		
 		Label menuLabel = new Label("Menu");
+		menuLabel.setTextFill(Color.WHITE);
 		menuLabel.setOnMouseClicked(e->{profile.saveProfile(currentLevel, hitLabel.getText(), scoreLabel.getText(), boxes,this.volume);
 			stage.close();
 			stage.setScene(new Scene(new MenuPane(stage)));
@@ -105,6 +113,7 @@ public class GamePane extends BorderPane{
 		bottomPane.setCenter(hitLabel);
 		bottomPane.setLeft(menuLabel);
 		bottomPane.setRight(nextLevel);
+		bottomPane.setStyle("-fx-background-color:#3c474f");
 		this.setBottom(bottomPane);
 		
 		GridPane center = new GridPane();

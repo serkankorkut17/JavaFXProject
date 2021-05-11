@@ -1,3 +1,4 @@
+
 import java.io.File;
 import java.util.ArrayList;
 import javafx.geometry.Insets;
@@ -29,6 +30,7 @@ public class MenuPane extends GridPane {
 		add(volumeSlider, 0, 3);
 		
 		Button play = new Button(new File("profile").exists() ? "Resume" : "Play");
+		play.setStyle("-fx-background-color:#47acff");
 		play.setPrefSize(300, 50);
 		add(play, 0, 0);
 		play.setOnMouseClicked(e->{
@@ -41,6 +43,7 @@ public class MenuPane extends GridPane {
 		});
 		
 		Button newGame = new Button("New Game");
+		newGame.setStyle("-fx-background-color:#47acff");
 		if(play.getText().equals("Play")) {
 			newGame.setDisable(true);
 		}
@@ -61,6 +64,7 @@ public class MenuPane extends GridPane {
 		add(newGame, 0, 1);
 		
 		Button highScores = new Button("High Scores");
+		highScores.setStyle("-fx-background-color:#47acff");
 		highScores.setOnMouseClicked(e->{
 			VBox pane = new VBox();
 			pane.setPrefWidth(300);
