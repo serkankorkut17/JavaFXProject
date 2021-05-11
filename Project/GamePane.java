@@ -234,35 +234,34 @@ public class GamePane extends BorderPane{
 		mp.seek(mp.getStartTime());
 		mp.play();
 		
-		if (row < 9 && row > 0 && column < 9 && column > 0) {
-			hitOneBox(boxes[row][column]);
-			int hits = 1;
-			setPoints("Box:" + row + "-" + column);
+		hitOneBox(boxes[row][column]);
+		int hits = 1;
+		setPoints("Box:" + row + "-" + column);
 			
-			if(boxes[row+1][column].getType().equals("Mirror") || boxes[row+1][column].getType().equals("Wood")) {
-				hitOneBox(boxes[row+1][column]);
-				setPoints(getPoints() + " - Hit:" + (row+1) + "," + column);
-				hits++;
-			}
-			if(boxes[row-1][column].getType().equals("Mirror") || boxes[row-1][column].getType().equals("Wood")) {
-				hitOneBox(boxes[row-1][column]);
-				setPoints(getPoints() + " - Hit:" + (row-1) + "," + column);
-				hits++;
-			}
+		if(row<9 &&(boxes[row+1][column].getType().equals("Mirror") || boxes[row+1][column].getType().equals("Wood"))) {
+			hitOneBox(boxes[row+1][column]);
+			setPoints(getPoints() + " - Hit:" + (row+1) + "," + column);
+			hits++;
+		}
+		if(row>0 &&(boxes[row-1][column].getType().equals("Mirror") || boxes[row-1][column].getType().equals("Wood"))) {
+			hitOneBox(boxes[row-1][column]);
+			setPoints(getPoints() + " - Hit:" + (row-1) + "," + column);
+			hits++;
+		}
 			
-			if(boxes[row][column+1].getType().equals("Mirror") || boxes[row][column+1].getType().equals("Wood")) {
-				hitOneBox(boxes[row][column+1]);
-				setPoints(getPoints() + " - Hit:" + (row) + "," + (column+1));
-				hits++;
-			}
+		if(column<9 &&(boxes[row][column+1].getType().equals("Mirror") || boxes[row][column+1].getType().equals("Wood"))) {
+			hitOneBox(boxes[row][column+1]);
+			setPoints(getPoints() + " - Hit:" + (row) + "," + (column+1));
+			hits++;
+		}
 			
-			if(boxes[row][column-1].getType().equals("Mirror") || boxes[row][column-1].getType().equals("Wood")) {
-				hitOneBox(boxes[row][column-1]);
-				setPoints(getPoints() + " - Hit:" + (row) + "," + (column-1));
-				hits++;
-			}
+		if(column>0 &&(boxes[row][column-1].getType().equals("Mirror") || boxes[row][column-1].getType().equals("Wood"))) {
+			hitOneBox(boxes[row][column-1]);
+			setPoints(getPoints() + " - Hit:" + (row) + "," + (column-1));
+			hits++;
+		}
 			
-			switch(hits) {
+		switch(hits) {
 			case(1):
 				setPoints(getPoints() + " (-3 points)");
 				score -= 3;
@@ -296,7 +295,7 @@ public class GamePane extends BorderPane{
 				}
 			}
 		}
-	}
+	
 	
 	public void nextLevel() throws Exception {
 		if(currentLevel+1<=LEVEL_COUNT) {
