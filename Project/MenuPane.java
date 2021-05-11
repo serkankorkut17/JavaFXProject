@@ -52,6 +52,7 @@ public class MenuPane extends GridPane {
 			file.delete();	
 			play.setText("Play");
 			((Button)(e.getSource())).setDisable(true);
+			volumeSlider.setValue(100);
 		});
 		newGame.setPrefSize(300, 50);
 		add(newGame, 0, 1);
