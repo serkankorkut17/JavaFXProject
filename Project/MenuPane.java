@@ -1,4 +1,5 @@
 import java.io.File;
+import java.time.Duration;
 import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -7,11 +8,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class MenuPane extends GridPane {
 	Stage stage;
-	
 	public MenuPane(Stage stage) {
 		this.stage = stage;
 		setPadding(new Insets(100, 100, 100, 100));
@@ -22,6 +24,9 @@ public class MenuPane extends GridPane {
 		Slider volumeSlider = new Slider();
 		volumeSlider.setPrefSize(300, 50);
 		volumeSlider.setValue(GameProfile.getVolume());
+		Media sound = new Media(new File("sound.mp3").toURI().toString());
+	    MediaPlayer mp = new MediaPlayer(sound);
+		volumeSlider.setOnMousePressed(e->{mp.setVolume(volumeSlider.getValue()/100);mp.seek(mp.getStartTime());mp.play();});
 		add(volumeSlider, 0, 3);
 		
 		Button play = new Button(new File("profile").exists() ? "Resume" : "Play");
