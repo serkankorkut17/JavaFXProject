@@ -66,6 +66,13 @@ public class GamePane extends BorderPane{
 	    Media lvl = new Media(new File("levelup.mp3").toURI().toString());
 	    lvlMP = new MediaPlayer(lvl);
 	    
+	    String path = "volume.txt";
+		Scanner volumeFile = new Scanner(new File(path));
+		double volume = Double.parseDouble(volumeFile.nextLine());
+		volumeFile.close();
+	    mp.setVolume(volume);
+	    lvlMP.setVolume(volume);
+	    
 
 	    nextLevel.setDisable(true);
 		

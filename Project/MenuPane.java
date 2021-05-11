@@ -1,5 +1,8 @@
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -75,5 +78,37 @@ public class MenuPane extends GridPane {
 		Slider volumeSlider = new Slider();
 		volumeSlider.setPrefSize(300, 50);
 		add(volumeSlider, 0, 3);
+		String path = "volume.txt";
+		Scanner volumeFile = null;
+		try {
+			volumeFile = new Scanner(new File(path));
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		double volume = Double.parseDouble(volumeFile.nextLine());
+		volumeFile.close();
+		volumeSlider.setValue(volume * 100);
+		volumeSlider.valueProperty().addListener(new InvalidationListener() {
+			
+			@Override
+			public void invalidated(Observable observable) {
+				// TODO Auto-generated method stub
+				if (new File(path).exists()) {
+					new File(path).delete();
+					
+					File volumeFile = new File(path);
+					PrintWriter writer = null;
+					try {
+						writer = new PrintWriter(volumeFile);
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					writer.print(volumeSlider.getValue() / 100);
+					writer.close();
+				}
+			}
+		});
 	}
 }
