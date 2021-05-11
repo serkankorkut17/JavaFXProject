@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 public class GamePane extends BorderPane{
 	Stage stage;
+	private double volume;
 	private boolean isFirstStart;
 	private String points = "";
 	private int score = 0;
@@ -28,9 +29,9 @@ public class GamePane extends BorderPane{
     MediaPlayer mp;
     MediaPlayer lvlMP;
     GameProfile profile;
-	public GamePane(Stage stage) throws Exception {
+	public GamePane(Stage stage,double volume) throws Exception {
 		this.stage = stage;
-		stage.setOnCloseRequest(e->profile.saveProfile(currentLevel, hitLabel.getText(), scoreLabel.getText(), boxes));
+		stage.setOnCloseRequest(e->profile.saveProfile(currentLevel, hitLabel.getText(), scoreLabel.getText(), boxes,this.volume));
 		this.profile = new GameProfile();
 		if(!new File("profile/boxes.txt").exists()) {
 			currentLevel = 1;
@@ -59,21 +60,16 @@ public class GamePane extends BorderPane{
 			hitLabel.setText(this.getPoints());
 		});
 		
-		String music = "sound.mp3";
-	    Media sound = new Media(new File(music).toURI().toString());
+	    Media sound = new Media(new File("sound.mp3").toURI().toString());
 	    mp = new MediaPlayer(sound);
 	    
 	    Media lvl = new Media(new File("levelup.mp3").toURI().toString());
 	    lvlMP = new MediaPlayer(lvl);
 	    
-	    String path = "volume.txt";
-		Scanner volumeFile = new Scanner(new File(path));
-		double volume = Double.parseDouble(volumeFile.nextLine());
-		volumeFile.close();
+	    this.volume = volume;
 	    mp.setVolume(volume);
 	    lvlMP.setVolume(volume);
 	    
-
 	    nextLevel.setDisable(true);
 		
 		highScoreLabel.setText("High Score: " + profile.getHighScore(currentLevel));
@@ -95,7 +91,7 @@ public class GamePane extends BorderPane{
 		BorderPane bottomPane = new BorderPane();
 		
 		Label menuLabel = new Label("Menu");
-		menuLabel.setOnMouseClicked(e->{profile.saveProfile(currentLevel, hitLabel.getText(), scoreLabel.getText(), boxes);
+		menuLabel.setOnMouseClicked(e->{profile.saveProfile(currentLevel, hitLabel.getText(), scoreLabel.getText(), boxes,this.volume);
 			stage.close();
 			stage.setScene(new Scene(new MenuPane(stage)));
 			stage.show();

@@ -13,7 +13,7 @@ public class GameProfile {
 			createProfile();
 		}	
 	}
-	public void saveProfile(int currentLevel,String hitLabel,String scoreLabel, Box[][] boxes) {
+	public void saveProfile(int currentLevel,String hitLabel,String scoreLabel, Box[][] boxes,double volume){
 		if(!new File("profile/save.txt").exists() || !new File("profile/highscores.txt").exists() ) {
 			createProfile();
 		}
@@ -22,7 +22,7 @@ public class GameProfile {
 		File saveBox = new File(file+"/boxes.txt");
 		try {
 			PrintWriter writer = new PrintWriter(saveFile);
-			writer.write(String.format("%s/%s/%s","Level "+currentLevel,hitLabel,scoreLabel));
+			writer.write(String.format("%s/%s/%s/%s","Level "+currentLevel,hitLabel,scoreLabel,volume));
 			writer.close();
 			writer = new PrintWriter(saveBox);
 			for (int i = 0; i < boxes.length; i++) {
@@ -122,5 +122,24 @@ public class GameProfile {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public static double getVolume() {
+		File file = new File("profile/save.txt");
+		if(!file.exists()) {
+			return 100;
+		}
+		Scanner reader;
+		try {
+			reader = new Scanner(file);
+			double volume = Double.parseDouble(reader.nextLine().split("/")[3])*100;
+			reader.close();
+			return volume;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
+		
 	}
 }
