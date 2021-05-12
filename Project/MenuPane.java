@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class MenuPane extends GridPane {
@@ -67,10 +68,13 @@ public class MenuPane extends GridPane {
 		highScores.setStyle("-fx-background-color:#47acff");
 		highScores.setOnMouseClicked(e->{
 			VBox pane = new VBox();
+			pane.setStyle("-fx-background-color:#3c474f");
 			pane.setPrefWidth(300);
 			ArrayList<String> highScoresList = GameProfile.getHighScores();
 			for(int i = 0;i<GamePane.LEVEL_COUNT;i++) {
-				pane.getChildren().add(new Label(String.format("Level %d: %s",i+1,highScoresList == null ? "*" : highScoresList.get(i))));
+				Label label = new Label(String.format("Level %d: %s",i+1,highScoresList == null ? "*" : highScoresList.get(i)));
+				label.setTextFill(Color.WHITE);
+				pane.getChildren().add(label);
 			}
 		
 			Stage highScoresStage = new Stage();
