@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 
 public class LevelMaker extends Application{
 
+	private int box_type;
+	
 	public static void main(String[] args) {
 		launch();
 	}
@@ -33,9 +35,6 @@ public class LevelMaker extends Application{
 		pane.setTop(topPane);
 		pane.setBottom(bottomPane);
 		
-		topPane.setRight(new Label("RightClick for WoodBox"));
-		topPane.setLeft(new Label("LeftClick for MirrorBox"));
-		topPane.setCenter(new Label("MiddleClick for EmptyBox"));
 		
 		Button save = new Button("Save");
 		TextField tf = new TextField();
@@ -51,7 +50,9 @@ public class LevelMaker extends Application{
 					PrintWriter writer = new PrintWriter(saveFile);
 					for (int i = 0; i < boxes.length; i++) {
 						for (int j = 0; j < boxes[i].length; j++) {
-							writer.println(boxes[i][j].getType() + "," + i + "," + j);
+							if(!boxes[i][j].getType().equals("Wall")) {
+								writer.println(boxes[i][j].getType() + "," + i + "," + j);
+							}	
 						}
 					}
 					writer.close();
@@ -75,18 +76,24 @@ public class LevelMaker extends Application{
 				boxes[row][column] = new Box("Wall");
 				center.add(boxes[row][column],column, row);
 				boxes[row][column].setOnMouseClicked(e-> {
-					if (e.getButton() == MouseButton.PRIMARY) {
-						Box box = (Box)e.getSource();
-						box.setType("Mirror");
+					int box_type = ((Box)e.getSource()).box_type;
+					if(box_type == 0) {
+						((Box)e.getSource()).setType("Mirror");
 					}
-					else if (e.getButton() == MouseButton.SECONDARY) {
-						Box box = (Box)e.getSource();
-						box.setType("Wood");
+					else if(box_type == 1) {
+						((Box)e.getSource()).setType("Wood");
 					}
-					else if (e.getButton() == MouseButton.MIDDLE) {
-						Box box = (Box)e.getSource();
-						box.setType("Empty");
+					else if(box_type == 2) {
+						((Box)e.getSource()).setType("Empty");
 					}
+					else {
+						((Box)e.getSource()).setType("Wall");
+					}
+					box_type++;
+					if(box_type == 4) {
+						box_type = 0;
+					}
+					((Box)e.getSource()).box_type = box_type;
 				});
 			}	
 		}

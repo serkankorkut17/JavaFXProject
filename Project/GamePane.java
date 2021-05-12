@@ -29,7 +29,7 @@ public class GamePane extends BorderPane{
 	private Label highScoreLabel = new Label();
 	private Label currentLevelLabel = new Label();
 	private Label hitLabel = new Label("---Text---");
-	public static final int LEVEL_COUNT = 5;
+	public static final int LEVEL_COUNT = 6;
 	private Box[][] boxes = new Box[10][10];
 	private int currentLevel;
     MediaPlayer mp;
@@ -81,9 +81,10 @@ public class GamePane extends BorderPane{
 	    mp.setVolume(volume);
 	    lvlMP.setVolume(volume);
 	    
-	    nextLevel.setDisable(true);
-		
-		highScoreLabel.setText("High Score: " + profile.getHighScore(currentLevel));
+	    highScoreLabel.setText("High Score: " + profile.getHighScore(currentLevel));
+	    if(highScoreLabel.getText().split(":")[1].equals(" *")) {
+	    	nextLevel.setDisable(true);
+	    }
 			
 		draw(currentLevel);
 		
@@ -308,8 +309,10 @@ public class GamePane extends BorderPane{
 		}
 		score = 0;
 		scoreLabel.setText("Score: "+score);
-		nextLevel.setDisable(true);
 		highScoreLabel.setText("High Score: " + profile.getHighScore(currentLevel));
+		if(highScoreLabel.getText().split(":")[1].equals(" *")) {
+	    	nextLevel.setDisable(true);
+	    }
 	}
 	
 	public int getCurrentLevel() {

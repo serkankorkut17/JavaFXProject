@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Box extends ImageView {
-
+	public int box_type;
 	private String type;
 	private static Image wall = new Image("images\\wall.png");
 	private static Image mirror = new Image("images\\mirror.png");
