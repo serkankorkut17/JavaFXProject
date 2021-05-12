@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
@@ -27,8 +28,15 @@ public class LevelMaker extends Application{
 		Box[][] boxes = new Box[10][10];
 		
 		BorderPane pane = new BorderPane();
+		BorderPane topPane = new BorderPane();
 		BorderPane bottomPane = new BorderPane();
+		pane.setTop(topPane);
 		pane.setBottom(bottomPane);
+		
+		topPane.setRight(new Label("RightClick for WoodBox"));
+		topPane.setLeft(new Label("LeftClick for MirrorBox"));
+		topPane.setCenter(new Label("MiddleClick for EmptyBox"));
+		
 		Button save = new Button("Save");
 		TextField tf = new TextField();
 		bottomPane.setLeft(save);
