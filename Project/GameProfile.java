@@ -81,7 +81,7 @@ public class GameProfile {
 		file.mkdir();
 		try {
 			PrintWriter writer = new PrintWriter(file+"/save.txt");
-			writer.println("1/---Text---/0");
+			writer.println("1//0");
 			writer.close();
 			writer = new PrintWriter(file+"/highscores.txt");
 			for(int i = 0;i<GamePane.LEVEL_COUNT;i++) {

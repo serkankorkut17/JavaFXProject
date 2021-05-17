@@ -28,7 +28,7 @@ public class GamePane extends BorderPane{
 	private Label nextLevel = new Label("Next Level");
 	private Label highScoreLabel = new Label();
 	private Label currentLevelLabel = new Label();
-	private Label hitLabel = new Label("---Text---");
+	private Label hitLabel = new Label();
 	public static final int LEVEL_COUNT = 6;
 	private Box[][] boxes = new Box[10][10];
 	private int currentLevel;
@@ -45,6 +45,7 @@ public class GamePane extends BorderPane{
 		currentLevelLabel.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#ff9900;-fx-background-radius:10px");
 		currentLevelLabel.setTextFill(Color.WHITE);
 		hitLabel.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#47acff;-fx-background-radius:10px");
+		hitLabel.setVisible(false);
 		this.stage = stage;
 		stage.setOnCloseRequest(e->profile.saveProfile(currentLevel, hitLabel.getText(), scoreLabel.getText(), boxes,this.volume));
 		this.profile = new GameProfile();
@@ -57,6 +58,9 @@ public class GamePane extends BorderPane{
 			String[] labels = profile.loadLabels();
 			currentLevelLabel.setText(labels[0]);
 			hitLabel.setText(labels[1]);
+			if(!labels[1].equals("")) {
+				hitLabel.setVisible(true);
+			}
 			scoreLabel.setText(labels[2]);
 			score = Integer.parseInt(labels[2].split(" ")[1]);
 			currentLevel = Integer.parseInt(labels[0].split(" ")[1]);
@@ -66,14 +70,11 @@ public class GamePane extends BorderPane{
 			try {
 			this.nextLevel();
 			currentLevelLabel.setText(String.format("Level %d", this.getCurrentLevel()));
-			hitLabel.setText("---Text---");
+			hitLabel.setText("");
+			hitLabel.setVisible(false);
 			} catch (Exception e1) {	
 					e1.printStackTrace();
 		}});
-		
-		this.setOnMouseClicked(e-> {	
-			hitLabel.setText(this.getPoints());
-		});
 		
 	    Media sound = new Media(new File("sound.mp3").toURI().toString());
 	    mp = new MediaPlayer(sound);
@@ -134,7 +135,6 @@ public class GamePane extends BorderPane{
 				center.add(boxes[row][column],column, row);
 				boxes[row][column].setOnMouseClicked(e-> {
 					if (e.getButton() == MouseButton.PRIMARY) {
-						setPoints("");
 						Box box = (Box)e.getSource();
 						try {
 							hitBoxes(box);
@@ -164,7 +164,7 @@ public class GamePane extends BorderPane{
 	
 	public String getPoints() {
 		if (points.equals(""))
-			return "---Text---";
+			return "";
 		return points;
 	}
 
@@ -289,6 +289,8 @@ public class GamePane extends BorderPane{
 				setPoints(getPoints() + " (+4 points)");
 				break;
 			}
+			hitLabel.setText(this.getPoints());
+			hitLabel.setVisible(true);
 			scoreLabel.setText("Score: "+score);
 			if(isFinished()) {
 				nextLevel.setDisable(false);
