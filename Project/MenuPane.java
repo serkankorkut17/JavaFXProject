@@ -24,6 +24,7 @@ public class MenuPane extends GridPane {
 		
 		Slider volumeSlider = new Slider();
 		volumeSlider.setPrefSize(300, 50);
+		volumeSlider.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#47acff;-fx-background-radius:10px");
 		volumeSlider.setValue(GameProfile.getVolume());
 		Media sound = new Media(new File("sound.mp3").toURI().toString());
 	    MediaPlayer mp = new MediaPlayer(sound);
@@ -33,6 +34,7 @@ public class MenuPane extends GridPane {
 		Button play = new Button(new File("profile").exists() ? "Resume" : "Play");
 		play.setStyle("-fx-background-color:#47acff");
 		play.setPrefSize(300, 50);
+		play.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#47acff;-fx-background-radius:10px");
 		add(play, 0, 0);
 		play.setOnMouseClicked(e->{
 			try {
@@ -63,6 +65,7 @@ public class MenuPane extends GridPane {
 		});
 		newGame.setPrefSize(300, 50);
 		add(newGame, 0, 1);
+		newGame.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#47acff;-fx-background-radius:10px");
 		
 		Button highScores = new Button("High Scores");
 		highScores.setStyle("-fx-background-color:#47acff");
@@ -86,6 +89,7 @@ public class MenuPane extends GridPane {
 		});
 		highScores.setPrefSize(300, 50);
 		add(highScores,0,2);
+		highScores.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#47acff;-fx-background-radius:10px");
 		
 	}
 }
