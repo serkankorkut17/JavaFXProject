@@ -36,11 +36,15 @@ public class GamePane extends BorderPane{
     MediaPlayer lvlMP;
     GameProfile profile;
 	public GamePane(Stage stage,double volume) throws Exception {
+		scoreLabel.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#4b005e;-fx-background-radius:10px");
 		scoreLabel.setTextFill(Color.WHITE);
+		nextLevel.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:green;-fx-background-radius:10px");
 		nextLevel.setTextFill(Color.WHITE);
+		highScoreLabel.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#4b005e;-fx-background-radius:10px");
 		highScoreLabel.setTextFill(Color.WHITE);
+		currentLevelLabel.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#4b005e;-fx-background-radius:10px");
 		currentLevelLabel.setTextFill(Color.WHITE);
-		hitLabel.setTextFill(Color.WHITE);
+		hitLabel.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#47acff;-fx-background-radius:10px");
 		this.stage = stage;
 		stage.setOnCloseRequest(e->profile.saveProfile(currentLevel, hitLabel.getText(), scoreLabel.getText(), boxes,this.volume));
 		this.profile = new GameProfile();
@@ -104,6 +108,7 @@ public class GamePane extends BorderPane{
 		BorderPane bottomPane = new BorderPane();
 		
 		Label menuLabel = new Label("Menu");
+		menuLabel.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:red;-fx-background-radius:10px");
 		menuLabel.setTextFill(Color.WHITE);
 		menuLabel.setOnMouseClicked(e->{profile.saveProfile(currentLevel, hitLabel.getText(), scoreLabel.getText(), boxes,this.volume);
 			stage.close();
