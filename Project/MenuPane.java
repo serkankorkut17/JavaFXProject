@@ -38,12 +38,12 @@ public class MenuPane extends GridPane {
 		// Place a button in the scene to start the game
 		Button play = new Button(new File("profile").exists() ? "Resume" : "Play");
 		play.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#47acff;-fx-background-radius:10px");
-	//	play.setStyle("-fx-background-color:#47acff");
 		play.setPrefSize(300, 50);
 		add(play, 0, 0);
 		// Create and register the handler to be able to start the game 
 		play.setOnMouseClicked(e->{
 			try {
+				// Create a scene and a pane to start the game and place the scene in the stage
 				stage.setScene(new Scene(new GamePane(stage,volumeSlider.getValue()/100)));	
 			} catch (Exception e1) {
 				e1.printStackTrace();
@@ -53,7 +53,6 @@ public class MenuPane extends GridPane {
 		// Place a button in the scene to start a new game
 		Button newGame = new Button("New Game");
 		newGame.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#47acff;-fx-background-radius:10px");
-	//	newGame.setStyle("-fx-background-color:#47acff");
 		newGame.setPrefSize(300, 50);
 		add(newGame, 0, 1);
 		if(play.getText().equals("Play")) {
@@ -77,7 +76,6 @@ public class MenuPane extends GridPane {
 		// Place a button in the scene to see the highest score for each level
 		Button highScores = new Button("High Scores");
 		highScores.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#47acff;-fx-background-radius:10px");
-	//	highScores.setStyle("-fx-background-color:#47acff");
 		highScores.setPrefSize(300, 50);
 		add(highScores,0,2);
 		
@@ -93,7 +91,7 @@ public class MenuPane extends GridPane {
 				label.setTextFill(Color.WHITE);
 				pane.getChildren().add(label);
 			}
-		
+			// Create a new stage to see the highest scores 
 			Stage highScoresStage = new Stage();
 			highScoresStage.setTitle("High Scores");
 			highScoresStage.setScene(new Scene(pane));
