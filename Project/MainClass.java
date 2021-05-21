@@ -1,4 +1,10 @@
-
+/* 
+ * Ömer KÝBAR 150119037
+ * Serkan KORKUT 150119036
+ * 
+ * This is MainClass for the program.
+ * It creates a MenuPane and displays it.
+*/
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

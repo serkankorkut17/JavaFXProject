@@ -1,3 +1,13 @@
+/* 
+ * Ömer KÝBAR 150119037
+ * Serkan KORKUT 150119036
+ * 
+ * This class represents the boxes in the GamePane.
+ * It extends ImageView to show an image.
+ * Inside GamePane class we create boxes, we set the type of the boxes
+ * According to given type this class sets the image of box.
+ * The images for this class is under images file.
+ */
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

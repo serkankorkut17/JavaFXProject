@@ -1,4 +1,11 @@
-
+/* 
+ * Ömer KÝBAR 150119037
+ * Serkan KORKUT 150119036
+ *
+ * This class represents menu of the game it extends GridPane for this purpose.
+ * When the program starts MainClass first creates a MenuPane and displays it.
+ * In the menu user can resume the game, start new game, see his/her high scores and sets the volume for the game. 
+ */
 import java.io.File;
 import java.util.ArrayList;
 import javafx.geometry.Insets;
@@ -14,22 +21,22 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class MenuPane extends GridPane {
-	Stage stage;
+	//Constructor of this class takes stage as paramater so that it can change the scene for the game when the user click 'Play' or 'Resume'.
 	public MenuPane(Stage stage) {
-		this.stage = stage;
 		// Set the properties of menu pane
 		setPadding(new Insets(100, 100, 100, 100));
 		setHgap(100);
 		setVgap(100);
 		setStyle("-fx-background-color:#3c474f");
 		
-		// Place a button in the scene to adjust the game volume
+		// Place a slider in the scene to adjust the game volume.
 		Slider volumeSlider = new Slider();
 		volumeSlider.setPrefSize(300, 50);
 		volumeSlider.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#47acff;-fx-background-radius:10px");
 		add(volumeSlider, 0, 3);
-		volumeSlider.setValue(GameProfile.getVolume());
+		volumeSlider.setValue(GameProfile.getVolume());//It loads the saved volume as it's value.
 		
+		//We create media player so user can set the volume properly by hearing a sound.
 		Media sound = new Media(new File("sound.mp3").toURI().toString());
 	    MediaPlayer mp = new MediaPlayer(sound);
 	    // Create and register the handler to preview the volume 
@@ -85,8 +92,9 @@ public class MenuPane extends GridPane {
 			VBox pane = new VBox();
 			pane.setStyle("-fx-background-color:#3c474f");
 			pane.setPrefWidth(300);
-			ArrayList<String> highScoresList = GameProfile.getHighScores();
+			ArrayList<String> highScoresList = GameProfile.getHighScores(); //Gets high scores for all the levels.
 			for(int i = 0;i<GamePane.LEVEL_COUNT;i++) {
+				//Create a label that shows highs score for the level i.
 				Label label = new Label(String.format("Level %d: %s",i+1,highScoresList == null ? "*" : highScoresList.get(i)));
 				label.setTextFill(Color.WHITE);
 				pane.getChildren().add(label);
