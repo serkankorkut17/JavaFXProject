@@ -94,11 +94,11 @@ public class GamePane extends BorderPane{
 		}});
 		
 		//Create a media player with the loaded sound and assign it mp.
-	    Media sound = new Media(new File("sound.mp3").toURI().toString());
+	    Media sound = new Media(new File("sounds\\sound.mp3").toURI().toString());
 	    mp = new MediaPlayer(sound);
 	    
 	    //Create a media player with the loaded level up sound and assign lvlMp.
-	    Media lvl = new Media(new File("levelup.mp3").toURI().toString());
+	    Media lvl = new Media(new File("sounds\\levelup.mp3").toURI().toString());
 	    lvlMP = new MediaPlayer(lvl);
 	    
 	    //Set the volume of each media player and assigng volume to the volume field.

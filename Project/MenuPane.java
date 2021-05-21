@@ -37,7 +37,7 @@ public class MenuPane extends GridPane {
 		volumeSlider.setValue(GameProfile.getVolume());//It loads the saved volume as it's value.
 		
 		//We create media player so user can set the volume properly by hearing a sound.
-		Media sound = new Media(new File("sound.mp3").toURI().toString());
+		Media sound = new Media(new File("sounds\\sound.mp3").toURI().toString());
 	    MediaPlayer mp = new MediaPlayer(sound);
 	    // Create and register the handler to preview the volume 
 		volumeSlider.setOnMousePressed(e->{mp.setVolume(volumeSlider.getValue()/100);mp.seek(mp.getStartTime());mp.play();});
