@@ -47,13 +47,13 @@ public class GamePane extends BorderPane{
     private GameProfile profile;
 	public GamePane(Stage stage,double volume) throws Exception {
 		//Style and color settings for the labels.
-		scoreLabel.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#ff9900;-fx-background-radius:10px");
+		scoreLabel.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#cc4974;-fx-background-radius:10px");
 		scoreLabel.setTextFill(Color.WHITE);
 		nextLevel.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:green;-fx-background-radius:10px");
 		nextLevel.setTextFill(Color.WHITE);
-		highScoreLabel.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#ff9900;-fx-background-radius:10px");
+		highScoreLabel.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#cc4974;-fx-background-radius:10px");
 		highScoreLabel.setTextFill(Color.WHITE);
-		currentLevelLabel.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#ff9900;-fx-background-radius:10px");
+		currentLevelLabel.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#cc4974;-fx-background-radius:10px");
 		currentLevelLabel.setTextFill(Color.WHITE);
 		hitLabel.setStyle("-fx-padding:5px 10px 5px 10px;-fx-background-color:#47acff;-fx-background-radius:10px");
 		hitLabel.setVisible(false);//When hit label is an empty text, it is not displayed.
