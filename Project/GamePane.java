@@ -39,7 +39,7 @@ public class GamePane extends BorderPane{
 	private Label highScoreLabel = new Label();
 	private Label currentLevelLabel = new Label();
 	private Label hitLabel = new Label();
-	public static final int LEVEL_COUNT = 12;// This field is representing total count of levels. To get the value without creating a GamePane from the other classes it is declared as static.
+	public static final int LEVEL_COUNT = 13;// This field is representing total count of levels. To get the value without creating a GamePane from the other classes it is declared as static.
 	private Box[][] boxes = new Box[10][10];// This array holds boxes inside the center grid pane.
 	private int currentLevel;
     private MediaPlayer mp;// This media player plays sound when user click on a box.
