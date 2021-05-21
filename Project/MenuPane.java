@@ -21,7 +21,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class MenuPane extends GridPane {
-	//Constructor of this class takes stage as paramater so that it can change the scene for the game when the user click 'Play' or 'Resume'.
+	// Constructor of this class takes stage as paramater so that it can change the scene for the game when the user click 'Play' or 'Resume'.
 	public MenuPane(Stage stage) {
 		// Set the properties of menu pane
 		setPadding(new Insets(100, 100, 100, 100));
@@ -36,7 +36,7 @@ public class MenuPane extends GridPane {
 		add(volumeSlider, 0, 3);
 		volumeSlider.setValue(GameProfile.getVolume());//It loads the saved volume as it's value.
 		
-		//We create media player so user can set the volume properly by hearing a sound.
+		// We create media player so user can set the volume properly by hearing a sound.
 		Media sound = new Media(new File("sounds\\sound.mp3").toURI().toString());
 	    MediaPlayer mp = new MediaPlayer(sound);
 	    // Create and register the handler to preview the volume 
@@ -92,9 +92,9 @@ public class MenuPane extends GridPane {
 			VBox pane = new VBox();
 			pane.setStyle("-fx-background-color:#3c474f");
 			pane.setPrefWidth(300);
-			ArrayList<String> highScoresList = GameProfile.getHighScores(); //Gets high scores for all the levels.
+			ArrayList<String> highScoresList = GameProfile.getHighScores(); // Gets high scores for all the levels.
 			for(int i = 0;i<GamePane.LEVEL_COUNT;i++) {
-				//Create a label that shows highs score for the level i.
+				// Create a label that shows highs score for the level i.
 				Label label = new Label(String.format("Level %d: %s",i+1,highScoresList == null ? "*" : highScoresList.get(i)));
 				label.setTextFill(Color.WHITE);
 				pane.getChildren().add(label);
