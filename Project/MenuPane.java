@@ -9,6 +9,7 @@
 import java.io.File;
 import java.util.ArrayList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,7 +18,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class MenuPane extends GridPane {
@@ -91,12 +91,14 @@ public class MenuPane extends GridPane {
 			// Create a pane to hold labels with the highest scores
 			VBox pane = new VBox();
 			pane.setStyle("-fx-background-color:#3c474f");
-			pane.setPrefWidth(300);
+			pane.setAlignment(Pos.CENTER);
+			pane.setPrefWidth(250);
 			ArrayList<String> highScoresList = GameProfile.getHighScores(); // Gets high scores for all the levels.
 			for(int i = 0;i<GamePane.LEVEL_COUNT;i++) {
 				// Create a label that shows highs score for the level i.
 				Label label = new Label(String.format("Level %d: %s",i+1,highScoresList == null ? "*" : highScoresList.get(i)));
-				label.setTextFill(Color.WHITE);
+				label.setStyle("-fx-padding:5px 25px 5px 25px;-fx-background-color:#47acff;-fx-background-radius:5px");
+				label.setPadding(new Insets(5,5,5,5));
 				pane.getChildren().add(label);
 			}
 			// Create a new stage to see the highest scores 
