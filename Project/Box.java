@@ -20,7 +20,6 @@ public class Box extends ImageView {
 	private static Image wood = new Image("images\\wood.png");
 	private static Image empty = new Image("images\\empty.png");
 	
-	/** Set box type */
 	public Box(String type) {
 		setType(type);
 	}

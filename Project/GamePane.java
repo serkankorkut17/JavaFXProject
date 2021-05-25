@@ -31,7 +31,7 @@ import javafx.util.Duration;
 public class GamePane extends BorderPane{
 	private Stage stage; // By using stage field we create event handler to save game when closing and we change scene and save the game when user clicks menu label.
 	private double volume;
-	private boolean isFirstStart;// If the game starts first time and there is a saved game, GamePane loads saved status of the boxes.
+	private boolean isFirstStart; // If the game starts first time and there is a saved game, GamePane loads saved status of the boxes.
 	private String points = "";
 	private int score = 0;
 	private Label scoreLabel = new Label();
@@ -39,11 +39,11 @@ public class GamePane extends BorderPane{
 	private Label highScoreLabel = new Label();
 	private Label currentLevelLabel = new Label();
 	private Label hitLabel = new Label();
-	public static final int LEVEL_COUNT = 13;// This field is representing total count of levels. To get the value without creating a GamePane from the other classes it is declared as static.
-	private Box[][] boxes = new Box[10][10];// This array holds boxes inside the center grid pane.
+	public static final int LEVEL_COUNT = 10; // This field is representing total count of levels. To get the value without creating a GamePane from the other classes it is declared as static.
+	private Box[][] boxes = new Box[10][10]; // This array holds boxes inside the center grid pane.
 	private int currentLevel;
-    private MediaPlayer mp;// This media player plays sound when user click on a box.
-    private MediaPlayer lvlMP;// This media player plays when the game is over.
+    private MediaPlayer mp; // This media player plays sound when user click on a box.
+    private MediaPlayer lvlMP; // This media player plays when the game is over.
     private GameProfile profile;
 	public GamePane(Stage stage,double volume) throws Exception {
 		// Style and color settings for the labels.
@@ -193,6 +193,8 @@ public class GamePane extends BorderPane{
 	
 	/** Return the points. */
 	public String getPoints() {
+		if (points.equals(""))
+			return "";
 		return points;
 	}
 	
@@ -212,6 +214,10 @@ public class GamePane extends BorderPane{
 		case("Mirror"):
 			box.setType("Empty");
 			animation(box);
+			break;
+		case("Wall"):
+			break;
+		case("Empty"):
 			break;
 		}
 	}
