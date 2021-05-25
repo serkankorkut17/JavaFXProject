@@ -193,8 +193,6 @@ public class GamePane extends BorderPane{
 	
 	/** Return the points. */
 	public String getPoints() {
-		if (points.equals(""))
-			return "";
 		return points;
 	}
 	
