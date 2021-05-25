@@ -213,10 +213,6 @@ public class GamePane extends BorderPane{
 			box.setType("Empty");
 			animation(box);
 			break;
-		case("Wall"):
-			break;
-		case("Empty"):
-			break;
 		}
 	}
 	
