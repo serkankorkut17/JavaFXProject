@@ -20,7 +20,7 @@ public class MainClass extends Application{
 		// Create a pane to access the game menu
 		MenuPane menuPane = new MenuPane(stage);
 		stage.setResizable(false);
-		stage.setTitle("Game"); // Set the stage title
+		stage.setTitle("Box Shaker"); // Set the stage title
 		stage.setScene(new Scene(menuPane)); // Create a scene and place it in the stage
 		stage.show(); // Display the stage
 		
