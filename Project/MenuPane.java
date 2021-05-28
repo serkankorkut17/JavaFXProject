@@ -27,7 +27,7 @@ public class MenuPane extends GridPane {
 		setPadding(new Insets(100, 100, 100, 100));
 		setHgap(100);
 		setVgap(100);
-		setStyle("-fx-background-color:#3c474f");
+		setStyle("-fx-background-image: url(\"images/menu_background.jpeg\")");
 		
 		// Place a slider in the scene to adjust the game volume.
 		Slider volumeSlider = new Slider();
