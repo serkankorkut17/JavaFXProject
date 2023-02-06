@@ -1,4 +1,4 @@
-# **CSE1142 - Computer Programming II JavaFX Project**
+# **CSE1142 - Computer Programming II - JavaFX Project**
 
 |Student ID|Name|Surname|
 |---|---|---| 
